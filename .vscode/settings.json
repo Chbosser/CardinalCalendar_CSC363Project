@@ -10,5 +10,7 @@
             "database": "csc363project",
             "username": "postgres"
         }
-    ]
+    ],
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.runInTerminal": true
 }

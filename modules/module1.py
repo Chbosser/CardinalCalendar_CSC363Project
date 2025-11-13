@@ -12,7 +12,7 @@ class Parameter:
     conn = psycopg2.connect(host="localhost", dbname = "csc363project", user = "postgres", password = os.getenv("password"), port = 5432)
     cur = conn.cursor()
 
-    def jsonify(self, string):
+    def jsonify(self, string: str):
         return json.loads(string)
     
     def is_json_to_dict(self, parameter: dict) -> bool:
@@ -45,6 +45,27 @@ class Parameter:
 
         # print(json.dumps(result, indent=1))
         return json.dumps(result, indent=1)
+    
+    def get_json2(self, parameter: dict):
+        
+        query_builder = QueryBuilder()
+        query = query_builder.curriculum_query(parameter)
+        print(query)
+        self.cur.execute(query)
+
+        colnames = []
+        for desc in self.cur.description:
+            colnames.append(desc[0])
+
+        rows = self.cur.fetchall()
+
+        result = []
+        for row in rows:
+            result.append(dict(zip(colnames, row)))
+
+        # print(json.dumps(result, indent=1))
+        return json.dumps(result, indent=1)
+
     
 # cur.close()
 # conn.close()

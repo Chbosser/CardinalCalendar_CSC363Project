@@ -40,6 +40,55 @@ class QueryBuilder:
 
         return string
     
+    def curriculum_query(self, parameter):
+        string = textwrap.dedent("""
+                                SELECT
+                                 class_section_number,
+                                 class.crs_code,
+                                 crs_name,
+                                 crs_credit,
+                                 subject_name,
+                                 term,
+                                 class_instructor,
+                                 class_time,
+                                 class_days
+                                FROM
+                                 class
+                                FULL JOIN course
+                                 on class.crs_code = course.crs_code
+                                WHERE
+                                 class_time <> 'TBA'
+        """)
+        if "required_courses" in parameter and "electives" in parameter:
+            string += "AND ("
+            first_requirement = parameter["required_courses"][0]
+            string += f"\nclass.crs_code = '{first_requirement}' "
+
+            for rc in parameter["required_courses"][1:]:
+                string += f"\nOR class.crs_code = '{rc}' "
+            for e in parameter["electives"]:
+                string += f"\nOR class.crs_code LIKE '{e}%' "
+            
+            string += ");"
+            return string
+        if "required_courses" in parameter:
+            string += "AND ("
+            first_requirement = parameter["required_courses"][0]
+            string += f"\nclass.crs_code = '{first_requirement}' "
+
+            for rc in parameter["required_courses"][1:]:
+                string += f"\nOR class.crs_code = '{rc}' "
+            string += ")"
+        if "electives" in parameter:
+            string += "AND ("
+            elective1 = parameter["electives"][0]
+            string += f"\nclass.crs_code = '{first_requirement}' "
+
+            for e in parameter["electives"][1:]:
+                string += f"\nOR class.crs_code = '{e}%' "
+            string += ")"
+        return string
+    
     def clear_values(self):
         self.values.clear()
         if len(self.values) == 0:

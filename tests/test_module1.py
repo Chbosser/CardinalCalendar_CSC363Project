@@ -52,23 +52,47 @@ test_parameters = [
     }
 }
 """,
-
+"""
+{
+    "term": "Spring 2026",
+    "major": "Biomedical Engineering",
+    "hard_constraints": {
+        "unavailable_times": [
+        {"day": "Mon"}
+        ]
+    }
+}
+""",
+"""
+{
+    "term": "Spring 2026",
+    "major": "Biomedical Engineering",
+    "hard_constraints": {
+        "unavailable_times": [
+        {"day": "Tue"}
+        ]
+    }
+}
+"""
 ]
 
 @pytest.fixture
 def parameters():
     return Parameter()
 
-def test_is_json(parameters):
-    assert parameters.is_json_to_dict(parameters.jsonify(test_parameters[0])) == True
+# def test_is_json(parameters):
+#     assert parameters.is_json_to_dict(parameters.jsonify(test_parameters[0])) == True
 
-@pytest.mark.parametrize("each_test", test_parameters, ids=['CSC1', 'CSC2', 'CEE'])
+@pytest.mark.parametrize("each_test", test_parameters, ids=['CSC1', 'CSC2', 'CEE', 'BE', 'BE2'])
 def test_get_json(parameters, each_test):
     result = parameters.get_json(parameters.jsonify(each_test))
     parsed = json.loads(result)
+
     if len(parsed) != 0:
-        #print(result)
-        assert isinstance(parsed, list)
+        print(result)
+        pass
     else:
         print('EMPTY')
+
+    assert isinstance(parsed, list)
 

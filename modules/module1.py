@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 import json
 import textwrap
+from modules.query_builder import QueryBuilder
 
 load_dotenv()
 
@@ -14,50 +15,34 @@ class Parameter:
     def jsonify(self, string):
         return json.loads(string)
     
-    def is_json_to_dict(self, parameter):
+    def is_json_to_dict(self, parameter: dict) -> bool:
         if isinstance(parameter, dict):
             return True
         else:
             return False
         
-    def get_json(self, parameter):
-        if self.is_json_to_dict(parameter):
-            day = parameter['hard_constraints']['unavailable_times'][0]['day']
-            day = f'{day}%'
-        query = textwrap.dedent("""
-          SELECT 
-            class_section_number,
-            class.crs_code,
-            crs_name,
-            crs_credit,
-            subject_name,
-            term,
-            class_instructor,
-            class_time,
-            class_days
-          FROM
-            class
-          FULL JOIN course
-            on class.crs_code = course.crs_code
-          WHERE
-            class_time <> 'TBA'
-            AND subject_name = %s
-            AND term = %s
-            AND class_days NOT LIKE %s
-            AND class_instructor LIKE %s             
-          """)
-        self.cur.execute(query, (parameter['major'], parameter['term'], day,parameter['preferences']['instructor']))
+    def get_json(self, parameter: dict):
 
-        # the following were passed in:
-        # Major
-        # Term
-        # Unavailable Days
-        # Instructor
+        query_builder = QueryBuilder()
+        query = query_builder.build_query(parameter)
+        values = query_builder.values
 
-        colnames = [desc[0] for desc in self.cur.description]
+        # print(f'\nquery: {query}')
+        # print(f'values: {values}')
+        self.cur.execute(query, values)
+
+        query_builder.clear_values()
+
+        colnames = []
+        for desc in self.cur.description:
+            colnames.append(desc[0])
+
         rows = self.cur.fetchall()
 
-        result = [dict(zip(colnames, row)) for row in rows]
+        result = []
+        for row in rows:
+            result.append(dict(zip(colnames, row)))
+
         # print(json.dumps(result, indent=1))
         return json.dumps(result, indent=1)
     

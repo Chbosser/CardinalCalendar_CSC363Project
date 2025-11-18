@@ -162,14 +162,14 @@ button:hover .tooltip{
   border-bottom-style:solid;
   border-bottom-color: #E1DEDE;
   border-bottom-width: 1px;
-   
 }
 
 .time-slots div p{
   position: absolute;
   left:78px;
   margin-top:-18px;
-  justify-content: right;
+  width:50px;
 }
+
 
 

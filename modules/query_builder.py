@@ -4,7 +4,7 @@ class QueryBuilder:
     def __init__(self):
         self.values = []
 
-    def build_query(self, parameters: dict) -> str:
+    def test_query(self, parameters: dict) -> str:
         string = textwrap.dedent("""
                                 SELECT
                                  class_section_number,
@@ -89,9 +89,63 @@ class QueryBuilder:
             string += ")"
         return string
     
+    def test2_query(self, parameter: dict) -> list:
+        queries = []
+        string = self.base_string()
+        if "required_courses" in parameter:
+            string += "AND ("
+            first_requirement = parameter["required_courses"][0]
+            string += f"\nclass.crs_code = '{first_requirement}' "
+
+            for rc in parameter["required_courses"][1:]:
+                string += f"\nOR class.crs_code = '{rc}' "
+            string += ")"
+            queries.append(string)
+
+        string = self.base_string()
+
+        if "electives" in parameter:
+            string += "AND ("
+            elective1 = parameter["electives"][0]
+            string += f"\nclass.crs_code = '{first_requirement}' "
+
+            for e in parameter["electives"][1:]:
+                string += f"\nOR class.crs_code = '{e}%' "
+            string += ")"
+        if "hard_constraints" in parameter and "unavailable_days" in parameter["hard_constraints"]:
+            if len(parameter["hard_constraints"]["unavailable_days"]) == 1:
+                string += f"AND ( class_days NOT LIKE '%{parameter["hard_constraints"]["unavailable_days"][0]}%')"
+            else:
+                string += f"AND ( class_days NOT LIKE '%{parameter["hard_constraints"]["unavailable_days"][0]}%')"
+                for ua in parameter["hard_constraints"]["unavailable_days"]:
+                    string += f"AND class_days NOT LIKE '%{ua}%'"
+                string += ")"
+            queries.append(string)
+            return queries
+    
     def clear_values(self):
         self.values.clear()
         if len(self.values) == 0:
             return True
         return False
+    
+    def base_string(self) -> str:
+        return textwrap.dedent("""
+                                SELECT
+                                 class_section_number,
+                                 class.crs_code,
+                                 crs_name,
+                                 crs_credit,
+                                 subject_name,
+                                 term,
+                                 class_instructor,
+                                 class_time,
+                                 class_days
+                                FROM
+                                 class
+                                FULL JOIN course
+                                 on class.crs_code = course.crs_code
+                                WHERE
+                                 class_time <> 'TBA'
+        """)
     

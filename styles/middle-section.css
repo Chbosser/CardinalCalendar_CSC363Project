@@ -1,3 +1,24 @@
+.middle-section{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+
+.top-section{
+  border-width: 2px;
+  border-color: red;
+}
+
+
+
+.toolbar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+}
+
 .calendar-selector{
   height:20px;
   width:120px;
@@ -32,7 +53,7 @@
   align-items: center;
   justify-content: center;
   margin-top:2px;
-
+  
 }
 
 .calendar-dropdown-button-icon{
@@ -42,4 +63,111 @@
 .calendar-dropdown-button:hover{
   cursor: pointer;
 }
+
+.create-calendar-button,.edit-calendar-button,.delete-calendar-button{
+  background-color: transparent;
+  margin-top:12px;
+  margin-left:8px;
+  border: none;
+  position: relative
+}
+
+
+.create-calendar-button{
+  margin-left:14px;
+  padding:0px;
+  height:20px;
+}
+
+.create-calendar-icon{
+  margin-top:4px;
+  height:12px
+}
+
+.edit-calendar-button,.delete-calendar-button{
+  height: 20px;
+  padding:0px;
+}
+
+.edit-calendar-icon{
+  height: 13px;
+  margin-top:3px;
+}
+
+
+.delete-calendar-icon{
+  margin-top:3px;
+}
+
+button:hover{
+  cursor: pointer;
+
+}
+
+button .tooltip{
+  opacity: 0;
+  transition: opacity 0.3s;
+  position: absolute;
+  bottom: -32px;
+  left: -13px;
+  background-color: grey;
+  color:white;
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-size: 10px;
+  white-space: nowrap;
+  font-family: Arial;
+  font-weight: 600;
+}
+.edit-calendar-button .tooltip{
+  left:-16px;
+}
+
+button:hover .tooltip{
+  opacity: 0.8;
+}
+
+.days-container{ 
+  display: flex;
+  flex-direction: row;
+  font-family: Amiri;
+  color:#817F7F; 
+  font-size: 14px;
+  justify-content: space-between;
+  padding-left: 120px;
+  padding-right: 110px;
+  margin-top: 4px;
+}
+
+.days-container div{
+  margin-left:20px;
+  margin-right:20px;
+}
+
+.time-slots{
+  display: flex;
+  flex-direction: column;
+  font-family: Amiri;
+  color:#817F7F; 
+  margin-left: 12px;
+  font-size: 14px;
+  justify-content: space-between;
+  
+  height: 721px;
+  margin-left: 48px;
+}
+
+.time-slots div{
+  display: flex;
+  border-bottom-style:solid;
+  border-bottom-color: #E1DEDE;
+  border-bottom-width: 1px;
+}
+
+.time-slots div p{
+  position: absolute;
+  left:78px;
+
+}
+
 

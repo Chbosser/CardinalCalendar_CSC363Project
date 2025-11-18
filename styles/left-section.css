@@ -1,5 +1,5 @@
 .left-section{
-  height: 720px;
+  height: 721px;
   width: 72px;
   display: flex;
   flex-direction: column;
@@ -33,9 +33,6 @@
   font-size: 14px;
 }
 
-.settings-text:hover{
-  text-decoration: underline;
-}
 
 .settings-button:hover{
   cursor:pointer
@@ -62,9 +59,7 @@
   font-size: 14px;
 }
 
-.export-text:hover{
-  text-decoration: underline;
-}
+
 
 .export-button:hover{
   cursor:pointer
@@ -91,11 +86,20 @@
   font-size: 14px;
 }
 
-.sign-out-text:hover{
-  text-decoration: underline;
-}
 
 .sign-out-button:hover{
   cursor:pointer
+}
+
+.sign-out-button:hover p{
+  text-decoration: underline;
+}
+
+.settings-button:hover p{
+  text-decoration: underline;
+}
+
+.export-button:hover p{
+  text-decoration: underline;
 }
 

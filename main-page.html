@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cardinal Calendar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/left-section.css">
+    <link rel="stylesheet" href="styles/toolbar.css">
+    <link rel="stylesheet" href="styles/middle-section.css">
+    <link rel="stylesheet" href="styles/main-body.css">
+    <link rel="stylesheet" href="styles/right-section.css">
+  </head>
+
+  <body style="margin: 0;">
+
+    <div class="header"> <!--Header with Cardinal Calendar Logo and Text-->
+      <div class="logo">
+         <img src="icons/cardinal-calendar-logo.png" class="cardinal-calendar-logo">
+          <p class="cardinal-calendar-text">CardinalCalendar</p>
+      </div> 
+    </div> 
+
+    <div class="main-body"> <!--TRI section beneath Header-->
+      <div class="left-section"> <!--Left Section that will have account and export button-->
+        <button class="settings-button"> <!--Account Button-->
+          <img src="icons/settings-icon.svg" class="settings-icon">
+          <p class="settings-text">Settings</p>
+        </button>
+        <button class="export-button"> <!--Export Button-->
+          <img src="icons/upload.svg" class="export-icon">
+          <p class="export-text">Export</p>
+        </button>
+        <button class="sign-out-button">
+          <img src="icons/sign-out.svg"class="sign-out-icon">
+          <p class="sign-out-text">Sign Out</p>
+        </button>
+      </div>
+
+      <div class="middle-section"> <!--MIDDLE SECTION WITH CALENDAR AND TOOLBAR-->
+        <div class="top-section">
+            <div class="toolbar">
+              <div class="calendar-selector"> <!--Calendar Selection-->
+                <p class="calendar-name">
+                  SPRING 2026
+                </p>
+                <button class="calendar-dropdown-button">
+                  <img class="calendar-dropdown-button-icon" src="icons/calendar-dropdown-button-icon.svg">
+                </button>
+              </div>
+
+              <div> <!--Create Calendar Button-->
+                <button class="create-calendar-button">
+                  <img src="icons/create-calendar-icon.svg" class="create-calendar-icon">
+                  <p class="tooltip">Create</p>
+                </button>
+              </div>
+
+              <div> <!--Rename Calendar-->
+                <button class="edit-calendar-button">
+                  <img src="icons/edit-calendar-icon.svg" class="edit-calendar-icon">
+                  <p class="tooltip">Rename</p>
+                </button>
+              </div>
+
+              <div> <!--Delete Calendar-->
+                <button class="delete-calendar-button">
+                  <img src="icons/delete-calendar-icon.svg" class="delete-calendar-icon">
+                  <p class="tooltip">Delete</p>
+                </button>
+              </div>
+            </div>
+        </div>
+
+        <div class="days-container">
+              <div class="monday-div">
+                <p class="monday-text">Monday</p>
+              </div>
+
+              <div class="tuesday-div">
+                <p class="tuesday-text">Tuesday</p>
+              </div>
+
+              <div class="wednesday-div">
+                <p class="wednesday-text">Wednesday</p>
+              </div>
+
+              <div class="thursday-div">
+                <p class="thursday-text">Thursday</p>
+              </div>
+
+              <div class="friday-div">
+                <p class="friday-text">Friday</p>
+              </div>
+        </div>
+      
+
+        <div class="time-slots">
+          <div class="nine-am">
+            <p>9am</p>
+          </div>
+          <div class="ten-am">
+            <p>10am</p>
+          </div>
+          <div class="eleven-am">
+            <p>11am</p>
+          </div>
+          <div class="twelve-pm">
+            <p>12pm</p>
+          </div>
+          <div class="one-pm">
+            <p>1am</p>
+          </div>
+          <div class="two-pm">
+            <p>2pm</p>
+          </div>
+          <div class="three-pm">
+            <p>3pm</p>
+          </div>
+          <div class="four-pm">
+            <p>4pm</p>
+          </div>
+          <div class="five-pm">
+            <p>5pm</p>
+          </div>
+          
+          
+        </div>
+      </div>
+      
+      <div class="right-section">
+        
+      </div>
+
+
+
+
+
+
+
+    </div>
+
+
+  </body>
+
+
+</html>

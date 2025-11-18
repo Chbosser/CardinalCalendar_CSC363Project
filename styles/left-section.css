@@ -1,0 +1,105 @@
+.left-section{
+  height: 721px;
+  width: 72px;
+  display: flex;
+  flex-direction: column;
+  border-right-style: solid;
+  align-items: center;
+  border-right-color: #E1DEDE;
+  border-right-width: 3px;
+  
+}
+
+.settings-button{
+  width: 70px;
+  background-color: transparent;
+  margin-top: 12px;
+  border: none;
+  margin-bottom:4px;
+  
+}
+
+.settings-icon{
+  margin:0;
+  height:34px;
+  margin-left:2px;
+}
+
+.settings-text{
+  margin: 0;
+  margin-top: -10px;
+  font-family: Amiri;
+  color:#817F7F; 
+  font-size: 14px;
+}
+
+
+.settings-button:hover{
+  cursor:pointer
+}
+
+.export-button{
+  width: 68px;
+  background-color: transparent;
+  margin-top: 8px;
+  border: none;
+}
+
+.export-icon{
+  margin:0;
+  height:28px;
+  
+}
+
+.export-text{
+  margin: 0;
+  margin-top: -6px;
+  font-family: Amiri;
+  color:#817F7F; 
+  font-size: 14px;
+}
+
+
+
+.export-button:hover{
+  cursor:pointer
+}
+
+.sign-out-button{
+   width: 72px;
+  background-color: transparent;
+  margin-top: 8px;
+  border: none;
+  margin-top: auto;
+}
+
+.sign-out-icon{
+  margin:0;
+  height:28px;
+}
+
+.sign-out-text{
+   margin: 0;
+  margin-top: -6px;
+  font-family: Amiri;
+  color:#817F7F; 
+  font-size: 14px;
+}
+
+
+.sign-out-button:hover{
+  cursor:pointer
+}
+
+.sign-out-button:hover p{
+  text-decoration: underline;
+}
+
+.settings-button:hover p{
+  text-decoration: underline;
+}
+
+.export-button:hover p{
+  text-decoration: underline;
+}
+

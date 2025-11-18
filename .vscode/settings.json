@@ -1,0 +1,16 @@
+{
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "postgre",
+            "database": "csc363project",
+            "username": "postgres"
+        }
+    ],
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.runInTerminal": true
+}

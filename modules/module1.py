@@ -24,7 +24,7 @@ class Parameter:
     def get_json(self, parameter: dict):
 
         query_builder = QueryBuilder()
-        query = query_builder.build_query(parameter)
+        query = query_builder.test_query(parameter)
         values = query_builder.values
 
         # print(f'\nquery: {query}')
@@ -65,6 +65,27 @@ class Parameter:
 
         # print(json.dumps(result, indent=1))
         return json.dumps(result, indent=1)
+    
+    def combination_json(self, parameter):
+        qz = []
+        query_builder = QueryBuilder()
+        query = query_builder.test2_query(parameter)
+        print(query)
+        for q in query:
+            self.cur.execute(q)
+            colnames = []
+            for desc in self.cur.description:
+                colnames.append(desc[0])
+
+            rows = self.cur.fetchall()
+
+            result = []
+            for row in rows:
+                result.append(dict(zip(colnames, row)))
+
+        qz.append(result)
+        print(qz)
+        return qz
 
     
 # cur.close()

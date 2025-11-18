@@ -88,6 +88,21 @@ test_parameters = [
 """
 ]
 
+more_test_parameters = [
+"""
+{
+    "term": "Spring 2026",
+    "major": "Computer Science",
+    "required_courses": ["CSC306", "CSC409"],
+    "electives": ["MATH", "CSC"],
+    "hard_constraints": {
+        "unavailable_days": ["Fri"],
+        "no_class_after": ["5%PM", "6%PM", "7%PM", "8%PM"]
+    }
+}
+"""
+]
+
 @pytest.fixture
 def parameters():
     return Parameter()
@@ -121,3 +136,8 @@ def test_get_json2(parameters, each_test):
 
     assert isinstance(parsed, list)
 
+def test_combination_json(parameters, id = 'test_combination'):
+    result = parameters.combination_json(parameters.jsonify(more_test_parameters[0]))
+    print(result)
+
+    assert isinstance(result, list)

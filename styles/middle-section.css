@@ -167,7 +167,9 @@ button:hover .tooltip{
 .time-slots div p{
   position: absolute;
   left:78px;
-
+  margin-top:-18px;
+  width:50px;
 }
+
 
 

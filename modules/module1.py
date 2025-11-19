@@ -12,19 +12,22 @@ class Parameter:
     conn = psycopg2.connect(host="localhost", dbname = "csc363project", user = "postgres", password = os.getenv("password"), port = 5432)
     cur = conn.cursor()
 
-    def jsonify(self, string: str):
+    # takes json string as a parameter and returns it as a python object
+    def parse_json(self, string: str) -> dict:
         return json.loads(string)
     
+    # checks if the parameter is a python object
     def is_json_to_dict(self, parameter: dict) -> bool:
         if isinstance(parameter, dict):
             return True
         else:
             return False
         
-    def get_json(self, parameter: dict):
+    
+    def execute_parametersv1(self, parameter: dict) -> str: # returns JSON-formatted string
 
         query_builder = QueryBuilder()
-        query = query_builder.test_query(parameter)
+        query = query_builder.build_sqlv1(parameter)
         values = query_builder.values
 
         # print(f'\nquery: {query}')
@@ -44,13 +47,13 @@ class Parameter:
             result.append(dict(zip(colnames, row)))
 
         # print(json.dumps(result, indent=1))
-        return json.dumps(result, indent=1)
+        return json.dumps(result, indent=1) # returns JSON-formatted string
     
-    def get_json2(self, parameter: dict):
+    def execute_cs_curriculum(self, parameter: dict):
         
         query_builder = QueryBuilder()
-        query = query_builder.curriculum_query(parameter)
-        print(query)
+        query = query_builder.build_curriculum_sql(parameter)
+        print(query) # prints sql query for debugging
         self.cur.execute(query)
 
         colnames = []
@@ -66,11 +69,14 @@ class Parameter:
         # print(json.dumps(result, indent=1))
         return json.dumps(result, indent=1)
     
-    def combination_json(self, parameter):
-        qz = []
+    def execute_parametersv2(self, parameter):
+        list_of_queries = []
         query_builder = QueryBuilder()
-        query = query_builder.test2_query(parameter)
-        print(query)
+        query = query_builder.build_sqlv2(parameter)
+        # print(str(query[1]))
+        for q in query:
+            print(f'\nquery: {q}')
+
         for q in query:
             self.cur.execute(q)
             colnames = []
@@ -82,10 +88,9 @@ class Parameter:
             result = []
             for row in rows:
                 result.append(dict(zip(colnames, row)))
-
-        qz.append(result)
-        print(qz)
-        return qz
+            list_of_queries.append(json.dumps(result, indent=1))
+        #print(qz)
+        return list_of_queries
 
     
 # cur.close()

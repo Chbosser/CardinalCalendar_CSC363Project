@@ -105,15 +105,21 @@ body {
 .message {
     background-color: #5c5c5c5c;
     max-width: 75%;
-    padding: 5px 5px 5px 5px;
+    padding: 8px 16px 8px 16px;
 }
 .message.user {
     align-self: flex-end;
     color: white;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 .message.system {
     align-self: flex-start;
     color: grey;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 .chat-bot-input2 {
     display: flex;

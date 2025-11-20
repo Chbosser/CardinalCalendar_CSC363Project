@@ -14,15 +14,16 @@
   font-family: Amiri;
   color:#817F7F; 
   font-size: 14px;
-  margin-top:40px;
-  margin-left:18px;
-  margin-right: 10px;
+  margin-top:50px;
+  margin-left:12px;
+  margin-right: 6px;
   text-align: right;
 
 }
 
 .time-div p{
-  margin-bottom: 80px;
+  margin-bottom: 86px;
+  margin-top:0;
 }
 
 .day-div{
@@ -34,10 +35,60 @@
   font-family: Amiri;
   color:#817F7F; 
   font-size: 14px;
+  position: relative;
 }
+
+.class-div{
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  background-color: #FB8484;
+  border-radius: 8px;
+  height: 100px;
+  position: absolute;
+  z-index: 100;
+  text-align: left;
+  top:100px;
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.class-div p{
+ margin:0;
+ font-size:12px;
+ line-height: 16px;
+}
+
+.class-ID{
+  font-family: Amiri;
+  color: black;
+  font-weight: 600;
+  
+  
+}
+
+.class-time{
+  font-family: Amiri;
+  color:#817F7F; 
+}
+
+.class-location{
+  font-family: Amiri;
+  color:#817F7F; 
+  
+}
+
+
+
+
 
 .day-text{
   margin-bottom: 28px;
+}
+
+.day-text-div{
+  width: 100%;
+  background-color: white;
 }
 
 .hour-block{

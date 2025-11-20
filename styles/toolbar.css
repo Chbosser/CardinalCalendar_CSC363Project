@@ -1,6 +1,10 @@
 .top-section{
-  border-width: 2px;
-  border-color: red;
+  position: fixed;
+  top:70px;
+  left:80px;
+  z-index: 10000;
+  background-color: white;
+
 }
 
 
@@ -101,7 +105,7 @@ button .tooltip{
   opacity: 0;
   transition: opacity 0.3s;
   position: absolute;
-  bottom: -30px;
+  bottom: -28px;
   left: -13px;
   background-color: grey;
   color:white;
@@ -118,4 +122,12 @@ button .tooltip{
 
 button:hover .tooltip{
   opacity: 0.8;
+}
+
+.block{
+  position: fixed;
+  width:100px;
+  height:50px;
+  background-color: white;
+  z-index: 1000;
 }

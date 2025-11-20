@@ -7,7 +7,10 @@
   align-items: center;
   border-right-color: #E1DEDE;
   border-right-width: 3px;
-  
+  position:fixed;
+  top:70px;
+  background-color: white;
+  z-index: 40;
 }
 
 .settings-button{

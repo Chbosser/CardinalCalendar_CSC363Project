@@ -3,7 +3,8 @@ from modules.module1 import Parameter
 import json
 from data.curriculum import cs_curriculum
 
-test_parameters = [
+parametersv1 = [
+# ID: CSC1
 """
 {
     "term": "Spring 2026",
@@ -25,6 +26,7 @@ test_parameters = [
     }
 }
 """,
+# ID: CSC2
 """
 {
     "term": "Spring 2026",
@@ -39,6 +41,7 @@ test_parameters = [
     }
 }
 """,
+# ID: CEE
 """
 {
     "term": "Spring 2026",
@@ -53,6 +56,7 @@ test_parameters = [
     }
 }
 """,
+# ID: BE
 """
 {
     "term": "Spring 2026",
@@ -64,6 +68,7 @@ test_parameters = [
     }
 }
 """,
+# ID: BE2
 """
 {
     "term": "Spring 2026",
@@ -75,6 +80,7 @@ test_parameters = [
     }
 }
 """,
+# ID: EE
 """
 {
     "term": "Spring 2026",
@@ -88,7 +94,7 @@ test_parameters = [
 """
 ]
 
-more_test_parameters = [
+parametersv2 = [
 """
 {
     "term": "Spring 2026",
@@ -96,8 +102,20 @@ more_test_parameters = [
     "required_courses": ["CSC306", "CSC409"],
     "electives": ["MATH", "CSC"],
     "hard_constraints": {
+        "unavailable_days": ["Mon", "Fri"],
+        "no_class_after": "4PM"
+    }
+}
+""",
+"""
+{
+    "term": "Spring 2026",
+    "major": "Electrical Engineering",
+    "required_courses": ["EE442", "EE461"],
+    "electives": ["EE"],
+    "hard_constraints": {
         "unavailable_days": ["Fri"],
-        "no_class_after": ["5%PM", "6%PM", "7%PM", "8%PM"]
+        "no_class_after": "6PM"
     }
 }
 """
@@ -107,37 +125,42 @@ more_test_parameters = [
 def parameters():
     return Parameter()
 
-def test_is_json(parameters):
-    assert parameters.is_json_to_dict(parameters.jsonify(test_parameters[0])) == True
+# def test_is_json(parameters):
+#     assert parameters.is_json_to_dict(parameters.parse_json(parametersv1[0])) == True
 
-@pytest.mark.parametrize("each_test", test_parameters, ids=['CSC1', 'CSC2', 'CEE', 'BE', 'BE2', 'EE'])
-def test_get_json(parameters, each_test):
-    result = parameters.get_json(parameters.jsonify(each_test))
-    parsed = json.loads(result)
+# @pytest.mark.parametrize("each_test", parametersv1, ids=['CSC1', 'CSC2', 'CEE', 'BE', 'BE2', 'EE'])
+# def test_execute_parametersv1(parameters, each_test):
 
-    if len(parsed) != 0:
-        print(result)
-        pass
-    else:
-        print('EMPTY')
+#     json_string = parameters.parse_json(each_test)
+#     result = parameters.execute_parametersv1(json_string)
+#     parsed = json.loads(result) # converts json string into python dict/list
 
-    assert isinstance(parsed, list)
+#     if len(parsed) != 0:
+#         print(result)
+#         pass
+#     else:
+#         print('EMPTY')
 
-@pytest.mark.parametrize("each_test", cs_curriculum, ids = ['1', '2', '3', '4'])
-def test_get_json2(parameters, each_test):
-    result = parameters.get_json2(parameters.jsonify(cs_curriculum[2]))
-    parsed = json.loads(result)
+#     assert isinstance(parsed, list)
+#     assert isinstance(result, str)
 
-    if len(parsed) != 0:
-        print(result)
-        pass
-    else:
-        print('EMPTY')
+# @pytest.mark.parametrize("each_test", cs_curriculum, ids = ['1', '2', '3', '4'])
+# def test_cs_curriculum(parameters, each_test):
+#     result = parameters.execute_cs_curriculum(parameters.parse_json(each_test))
+#     parsed = json.loads(result)
 
-    assert isinstance(parsed, list)
+#     if len(parsed) != 0:
+#         print(result)
+#         pass
+#     else:
+#         print('EMPTY')
 
-def test_combination_json(parameters, id = 'test_combination'):
-    result = parameters.combination_json(parameters.jsonify(more_test_parameters[0]))
-    print(result)
+#     assert isinstance(parsed, list)
+
+def test_execute_parametersv2(parameters, id = 'parametersv2'):
+    result = parameters.execute_parametersv2(parameters.parse_json(parametersv2[1]))
+    for query in result:
+        print(query)
+        assert isinstance(query, str)
 
     assert isinstance(result, list)

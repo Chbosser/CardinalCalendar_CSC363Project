@@ -25,7 +25,7 @@ def query_builder():
 
 def test_test2_query(query_builder):
     parameter = Parameter()
-    string = parameter.jsonify(more_test_parameters[0])
+    string = parameter.parse_json(more_test_parameters[0])
     results = query_builder.test2_query(string)
     print(results)
     assert isinstance(results, list), "result is list"

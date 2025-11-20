@@ -4,7 +4,7 @@ class QueryBuilder:
     def __init__(self):
         self.values = []
 
-    def test_query(self, parameters: dict) -> str:
+    def build_sqlv1(self, parameters: dict) -> str:
         string = textwrap.dedent("""
                                 SELECT
                                  class_section_number,
@@ -40,7 +40,7 @@ class QueryBuilder:
 
         return string
     
-    def curriculum_query(self, parameter):
+    def build_curriculum_sql(self, parameter):
         string = textwrap.dedent("""
                                 SELECT
                                  class_section_number,
@@ -89,7 +89,7 @@ class QueryBuilder:
             string += ")"
         return string
     
-    def test2_query(self, parameter: dict) -> list:
+    def build_sqlv2(self, parameter: dict) -> list:
         queries = []
         string = self.base_string()
         if "required_courses" in parameter:
@@ -106,20 +106,42 @@ class QueryBuilder:
 
         if "electives" in parameter:
             string += "AND ("
-            elective1 = parameter["electives"][0]
-            string += f"\nclass.crs_code = '{first_requirement}' "
-
-            for e in parameter["electives"][1:]:
-                string += f"\nOR class.crs_code = '{e}%' "
+            for count, e in enumerate(parameter["electives"]):
+                if count == 0:
+                    string += f"\nclass.crs_code LIKE '{e}%' "
+                else:
+                    string += f"\nOR class.crs_code LIKE '{e}%' "
             string += ")"
         if "hard_constraints" in parameter and "unavailable_days" in parameter["hard_constraints"]:
-            if len(parameter["hard_constraints"]["unavailable_days"]) == 1:
-                string += f"AND ( class_days NOT LIKE '%{parameter["hard_constraints"]["unavailable_days"][0]}%')"
-            else:
-                string += f"AND ( class_days NOT LIKE '%{parameter["hard_constraints"]["unavailable_days"][0]}%')"
-                for ua in parameter["hard_constraints"]["unavailable_days"]:
-                    string += f"AND class_days NOT LIKE '%{ua}%'"
-                string += ")"
+            string += "AND ("
+            for count, ua in enumerate(parameter["hard_constraints"]["unavailable_days"]):
+                if count == 0:
+                    string += f"\nclass_days NOT LIKE '%{ua}%' "
+                else:
+                    string += f"\nAND class_days NOT LIKE '%{ua}%' "
+            string += ")"
+        if "hard_constraints" in parameter and "no_class_after" in parameter["hard_constraints"]:
+            string += "AND (\n"
+            if parameter["hard_constraints"]["no_class_after"] == '6PM':
+                string += f"class_time NOT LIKE '%-6%PM' \n"
+                string += f"AND class_time NOT LIKE '%-7%PM' \n"
+                string += f"AND class_time NOT LIKE '%-8%PM' \n"
+                string += f"AND class_time NOT LIKE '%-9%PM' \n"
+            if parameter["hard_constraints"]["no_class_after"] == '5PM':
+                string += f"class_time NOT LIKE '%-5%PM' \n"
+                string += f"AND class_time NOT LIKE '%-6%PM' \n"
+                string += f"AND class_time NOT LIKE '%-7%PM' \n"
+                string += f"AND class_time NOT LIKE '%-8%PM' \n"
+                string += f"AND class_time NOT LIKE '%-9%PM' \n"
+            if parameter["hard_constraints"]["no_class_after"] == '4PM':
+                string += f"class_time NOT LIKE '%-4%PM' \n"
+                string += f"AND class_time NOT LIKE '%-5%PM' \n"
+                string += f"AND class_time NOT LIKE '%-6%PM' \n"
+                string += f"AND class_time NOT LIKE '%-7%PM' \n"
+                string += f"AND class_time NOT LIKE '%-8%PM' \n"
+                string += f"AND class_time NOT LIKE '%-9%PM' \n"
+            string += ")"
+
             queries.append(string)
             return queries
     

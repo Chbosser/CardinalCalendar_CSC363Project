@@ -8,20 +8,20 @@
   position: fixed;
   top:100px;
   left:68px;
-  right:423px;
+  right:503px;
   bottom:0;
   overflow-y: scroll;
   overflow-x: hidden;
+
 }
 
-.calendar-scroll-wrapper ::-webkit-scrollbar{
-  display: none;
-}
+
 
 .calendar-div{
   display: flex;
   flex-direction: row;
   margin-top:4px;
+  
 }
 
 .time-div{

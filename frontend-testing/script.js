@@ -54,17 +54,18 @@ input2.addEventListener('keydown', (event) => {
         messageChat.appendChild(newMessage);
         event.preventDefault();
         input2.value = '';
+        newMessage.scrollIntoView({behavior: 'smooth', block: 'end'})
     }
 })
 
-button.addEventListener('click', () => {
-    let text = input2.value
-    const newMessage = document.createElement('div');
-    newMessage.textContent = text;
+// button.addEventListener('click', () => {
+//     let text = input2.value
+//     const newMessage = document.createElement('div');
+//     newMessage.textContent = text;
 
-    newMessage.classList.add('message user');
+//     newMessage.classList.add('message user');
 
-    const messageChat = documet.querySelector('messages');
-    messageChat.appendChild(newMessage);
-    preventDefault();
-})
+//     const messageChat = documet.querySelector('messages');
+//     messageChat.appendChild(newMessage);
+//     preventDefault();
+// })

@@ -13,12 +13,13 @@
 //     }
 //     }
 //     getData();
-'use-strict'
+'use strict'
 const input = document.querySelector('.main-input');
 const button = document.querySelector('.input-button');
 console.log(input)
-input.addEventListener('keydown', (event) => {
+input.addEventListener('keydown', async(event) => {
     if (event.key === 'Enter') {
+        event.preventDefault()
         const startChat = document.querySelector('.chat-bot');
         startChat.classList.add('hidden');
 
@@ -35,15 +36,38 @@ input.addEventListener('keydown', (event) => {
         const messageChat = document.querySelector('.messages');
         messageChat.appendChild(newMessage);
 
+        const userInput = document.querySelector('.wrapper');
+        const formData = new FormData(userInput);
+        const response = await fetch("http://127.0.0.1:8000/api/chatbot", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'Accept': 'application/json',
+            }
+        });
+        const data = await response.json();
+        if (response.status == 200) {
+            console.log(data);
+
+            const newChatMessage = document.createElement('div');
+            newChatMessage.textContent = data
+            newChatMessage.classList.add('message');
+            newChatMessage.classList.add('system');
+            messageChat.appendChild(newChatMessage);
+        }
+
+
+
         console.log('Enter was pressed');
-        event.preventDefault()
     }
 })
 
 const input2 = document.querySelector('.main-input2');
-input2.addEventListener('keydown', (event) => {
+input2.addEventListener('keydown', async (event) => {
     if (event.key === 'Enter') {
+        event.preventDefault()
         let text = input2.value
+        console.log(text)
         const newMessage = document.createElement('div');
         newMessage.textContent = text;
 
@@ -52,9 +76,30 @@ input2.addEventListener('keydown', (event) => {
 
         const messageChat = document.querySelector('.messages');
         messageChat.appendChild(newMessage);
-        event.preventDefault();
         input2.value = '';
         newMessage.scrollIntoView({behavior: 'smooth', block: 'end'})
+
+        const formData = new FormData();
+        formData.append("chat-input", text)
+        const response = await fetch("http://127.0.0.1:8000/api/chatbot", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'Accept': 'application/json',
+            }
+        });
+        const data = await response.json();
+        if (response.status == 200) {
+            console.log(data);
+
+            const newChatMessage = document.createElement('div');
+            newChatMessage.textContent = data
+            newChatMessage.classList.add('message');
+            newChatMessage.classList.add('system');
+            messageChat.appendChild(newChatMessage);
+        }
+
+
     }
 })
 

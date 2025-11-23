@@ -102,21 +102,30 @@ parametersv2 = [
     "required_courses": ["CSC306", "CSC409"],
     "electives": ["MATH", "CSC"],
     "hard_constraints": {
-        "unavailable_days": ["Mon", "Fri"],
+        "unavailable_days": ["Fri"],
         "no_class_after": "4PM"
     }
 }
 """,
 """
 {
-    "term": "Spring 2026",
-    "major": "Electrical Engineering",
-    "required_courses": ["EE442", "EE461"],
-    "electives": ["EE"],
-    "hard_constraints": {
-        "unavailable_days": ["Fri"],
-        "no_class_after": "6PM"
-    }
+  "term": "Spring 2026",
+  "major": "Computer Science",
+  "required_courses": [
+    "CSC306",
+    "CSC409"
+  ],
+  "electives": [
+    "MATH",
+    "CSC",
+    "CSC"
+  ],
+  "hard_constraints": {
+    "unavailable_days": [
+      "Fri"
+    ],
+    "no_class_after": "6PM"
+  }
 }
 """
 ]

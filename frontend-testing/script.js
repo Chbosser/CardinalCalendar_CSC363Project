@@ -16,6 +16,9 @@
 'use strict'
 const input = document.querySelector('.main-input');
 const button = document.querySelector('.input-button');
+const calendarURL = "http://127.0.0.1:8000/cardinalcalendar";
+const chatbotURL = "http://127.0.0.1:8000/api/chatbot";
+
 console.log(input)
 input.addEventListener('keydown', async(event) => {
     if (event.key === 'Enter') {
@@ -38,7 +41,7 @@ input.addEventListener('keydown', async(event) => {
 
         const userInput = document.querySelector('.wrapper');
         const formData = new FormData(userInput);
-        const response = await fetch("http://127.0.0.1:8000/api/chatbot", {
+        const response = await fetch(calendarURL, {
             method: "POST",
             body: formData,
             headers: {
@@ -48,12 +51,12 @@ input.addEventListener('keydown', async(event) => {
         const data = await response.json();
         if (response.status == 200) {
             console.log(data);
-
             const newChatMessage = document.createElement('div');
-            newChatMessage.textContent = data
+            newChatMessage.textContent = JSON.stringify(data[0], null, 2);
             newChatMessage.classList.add('message');
             newChatMessage.classList.add('system');
             messageChat.appendChild(newChatMessage);
+            newChatMessage.scrollIntoView({behavior: 'smooth', block: 'end'})
         }
 
 
@@ -81,7 +84,7 @@ input2.addEventListener('keydown', async (event) => {
 
         const formData = new FormData();
         formData.append("chat-input", text)
-        const response = await fetch("http://127.0.0.1:8000/api/chatbot", {
+        const response = await fetch(calendarURL, {
             method: "POST",
             body: formData,
             headers: {
@@ -97,6 +100,7 @@ input2.addEventListener('keydown', async (event) => {
             newChatMessage.classList.add('message');
             newChatMessage.classList.add('system');
             messageChat.appendChild(newChatMessage);
+            newChatMessage.scrollIntoView({behavior: 'smooth', block: 'end'})
         }
 
 
@@ -114,3 +118,13 @@ input2.addEventListener('keydown', async (event) => {
 //     messageChat.appendChild(newMessage);
 //     preventDefault();
 // })
+
+function parseData(data) {
+    const required_courses = data[0];
+    const other_courses = data[1];
+
+    Object.entries(required_courses).forEach(([key, val]) => {
+        const newChatMessage = document.createElement('div');
+        newChatMessage.textContent = 'lol';
+    })
+}

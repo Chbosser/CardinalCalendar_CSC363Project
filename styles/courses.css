@@ -19,8 +19,8 @@ body {
     flex-direction: column;
     row-gap: 6px;
     color: grey;
-    width: 250px;
-    height: 300px;  
+    width: 200px;
+    margin-left: 20px;
 }
 .course-title {
     color: black;

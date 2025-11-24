@@ -48,15 +48,22 @@ input.addEventListener('keydown', async(event) => {
                 'Accept': 'application/json',
             }
         });
-        const data = await response.json();
+        let data = await response.json();
         if (response.status == 200) {
-            console.log(data);
-            const newChatMessage = document.createElement('div');
-            newChatMessage.textContent = JSON.stringify(data[0], null, 2);
-            newChatMessage.classList.add('message');
-            newChatMessage.classList.add('system');
-            messageChat.appendChild(newChatMessage);
-            newChatMessage.scrollIntoView({behavior: 'smooth', block: 'end'})
+            // console.log(typeof(data[0]));
+            // console.log(data);
+            // const newChatMessage = document.createElement('div');
+            // newChatMessage.textContent = data[0];
+            // data = JSON.parse(data[0]);
+            // console.log(typeof(data[0]));
+            // console.log(data);
+            // console.log(data[0].crs_code);
+            // newChatMessage.classList.add('message');
+            // newChatMessage.classList.add('system');
+            // messageChat.appendChild(newChatMessage);
+            // newChatMessage.scrollIntoView({behavior: 'smooth', block: 'end'})
+            data = JSON.parse(data[0]);
+            required_courses(data);
         }
 
 
@@ -119,12 +126,55 @@ input2.addEventListener('keydown', async (event) => {
 //     preventDefault();
 // })
 
-function parseData(data) {
-    const required_courses = data[0];
-    const other_courses = data[1];
+function required_courses(data) {
+    const container = document.querySelector('.messages');
+    const template = document.getElementById('course-template');
 
-    Object.entries(required_courses).forEach(([key, val]) => {
-        const newChatMessage = document.createElement('div');
-        newChatMessage.textContent = 'lol';
-    })
+    data.forEach(course => {
+        const clone = template.content.cloneNode(true);
+        const root = clone.querySelector('.course');
+
+        const title = clone.querySelector('.course-title');
+        title.insertBefore(document.createTextNode(course.crs_code + " "), title.firstElementChild);
+
+        clone.querySelector('.section').textContent = course.class_section_number;
+
+        clone.querySelector('.course-description').textContent = course.crs_name;
+        clone.querySelector('.course-semester span').textContent = course.term;
+
+        if (course.class_days === "Mon Wed Fri") {
+            clone.querySelector('.course-time span').textContent = "MWF " + course.class_time;
+        }
+        else if (course.class_days === "Mon Wed") {
+            clone.querySelector('.course-time span').textContent = "MW "  + course.class_time;
+        }
+        else if (course.class_days === "Tues Thurs") {
+            clone.querySelector('.course-time span').textContent = "TuTh " + course.class_time;
+        }
+        else if (course.class_days === "Mon") {
+            clone.querySelector('.course-time span').textContent = "M " + course.class_time;
+        }
+        else if (course.class_days === "Tues") {
+            clone.querySelector('.course-time span').textContent = "Tu " + course.class_time;
+        }
+        else if (course.class_days === "Wed") {
+            clone.querySelector('.course-time span').textContent = "W " + course.class_time;
+        }
+        else if (course.class_days === "Thur") {
+            clone.querySelector('.course-time span').textContent = "Th " + course.class_time;
+        }
+        else if (course.class_days === "Fri") {
+            clone.querySelector('.course-time span').textContent = "F " + course.class_time;
+        }
+        else {
+            clone.querySelector('.course-time span').textContent = course.class_time;
+        }
+        
+        const instructor = clone.querySelector('.course-instructor');
+        instructor.appendChild(document.createTextNode(course.class_instructor));
+
+        container.appendChild(clone);
+
+        root.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    });
 }

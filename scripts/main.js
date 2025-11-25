@@ -3,6 +3,7 @@
 const input = document.querySelector('.chat-text-box');
 const messageContainer = document.querySelector('.messages');
 const template = document.getElementById('course-template');
+const r = document.querySelector(':root');
 
 input.addEventListener('keydown', async (event) => {
     if (event.key === "Enter") {
@@ -35,7 +36,7 @@ input.addEventListener('keydown', async (event) => {
             if (response.status === 200) {
                 const requiredCourses = JSON.parse(data[0]); // gets the first list of objects (required courses)
                 const otherCourses = JSON.parse(data[1]); // gets the second list of objects (courses != required courses)
-
+                getRequiredCourses(requiredCourses);
                 getOtherCourses(otherCourses);
 
 
@@ -47,7 +48,112 @@ input.addEventListener('keydown', async (event) => {
 })
 function getRequiredCourses(data) {
 
+    const classTemplate = document.getElementById('class-div-template');
+    const courseColors = [
+    "#A7C7E7", // light periwinkle
+    "#B8E1C6", // mint green
+    "#FFD6E0", // baby pink
+    "#D9C3FF", // lavender
+    "#FFF6A7", // soft yellow
+    "#FFE4C4", // peach cream
+    "#B7E0FF"  // sky blue
+    ];
+
+    data.forEach(course => {
+        let randomNumber = Math.floor(Math.random() * (courseColors.length-1 - 0 + 1)) + 0;
+        
+        const monday = document.querySelector('.mon');
+        const tuesday = document.querySelector('.tue');
+        const wednesday = document.querySelector('.wed');
+        const thursday = document.querySelector('.thu');
+        const friday = document.querySelector('.fri');
+
+        const days = course.class_days.split(" ");
+
+        days.forEach(day => {
+
+            const classClone = classTemplate.content.cloneNode(true);
+            const classRoot = classClone.querySelector('.class-div');
+
+            classRoot.querySelector('.class-ID').textContent = course.crs_code;
+            classRoot.querySelector('.class-location').textContent = course.class_instructor;
+            classRoot.querySelector('.class-time').textContent = course.class_time;
+            classRoot.style.setProperty('--class-div-color', `${courseColors[randomNumber]}`)
+
+            if (course.class_time === "9:40AM-10:55AM") {
+                setRootCSSVariables(classRoot, 0, 0)
+            }
+            else if (course.class_time === "9:10AM-10:00AM") {
+                setRootCSSVariables(classRoot, 0, 0);
+            }
+            else if (course.class_time === "9:40AM-12:10PM") {
+                setRootCSSVariables(classRoot, 0, 0);
+            }
+            else if (course.class_time === "10:10AM-11:00AM") {
+                setRootCSSVariables(classRoot, 188, 93);
+            }
+            else if (course.class_time === "11:10AM-12:25PM") {
+                setRootCSSVariables(classRoot, 300, 145);
+            }
+            else if (course.class_time === "11:10AM-12:00PM") {
+                setRootCSSVariables(classRoot, 300, 93);
+            }
+            else if (course.class_time === "11:10AM-1:40PM") {
+                setRootCSSVariables(classRoot, 300, 290);
+            }
+            else if (course.class_time === "12:40PM-1:55PM") {
+                setRootCSSVariables(classRoot, 490,121);
+            }
+            else if (course.class_time === "12:40PM-3:10PM") {
+                setRootCSSVariables(classRoot, 490, 255);
+            }
+            else if (course.class_time === "12:40PM-1:30PM") {
+                setRootCSSVariables(classRoot, 490, 75);
+            }
+            else if (course.class_time === "2:10PM-3:25PM") {
+                setRootCSSVariables(classRoot, 635, 145);
+            }
+            else if (course.class_time === "2:10PM-4:40PM") {
+                setRootCSSVariables(classRoot, 0, 0);
+            }
+            else if (course.class_time === "2:10PM-3:00PM") {
+                setRootCSSVariables(classRoot, 0, 0);
+            }
+            else if (course.class_time === "3:40PM-4:55PM") {
+                setRootCSSVariables(classRoot, 0, 0);
+            }
+            else if (course.class_time === "3:40PM-6:10PM") {
+                setRootCSSVariables(classRoot, 0, 0);
+            }
+            else if (course.class_time === "5:10PM-7:40PM") {
+                setRootCSSVariables(classRoot, 490,121);
+            }
+            else if (course.class_time === "5:10PM-6:25PM") {
+                setRootCSSVariables(classRoot, 0, 0);
+            }
+            else if (course.class_time === "6:10PM-8:40PM") {
+                setRootCSSVariables(classRoot, 0, 0);
+            }
+            else if (course.class_time === "6:40PM-9:10PM") {
+                setRootCSSVariables(classRoot, 0, 0);
+            }
+
+            if (day === "Mon") {
+                monday.appendChild(classClone);
+            } else if (day === "Tues") {
+                tuesday.appendChild(classClone);
+            } else if (day === "Wed") {
+                wednesday.appendChild(classClone);
+            } else if (day === "Thurs") {
+                thursday.appendChild(classClone);
+            } else if (day === "Fri") {
+                friday.appendChild(classClone);
+            }
+
+        })
+    })
 }
+
 
 function getOtherCourses(data) {
 
@@ -55,8 +161,8 @@ function getOtherCourses(data) {
         const clone = template.content.cloneNode(true);
         const root = clone.querySelector('.course');
 
-        const title = clone.querySelector('.course-title');
-        title.insertBefore(document.createTextNode(course.crs_code + " "), title.firstElementChild);
+        const title = clone.querySelector('.course-title-div');
+        title.insertBefore(document.createTextNode(course.crs_code + "-"), title.firstElementChild);
 
         clone.querySelector('.section').textContent = course.class_section_number;
 
@@ -94,8 +200,18 @@ function getOtherCourses(data) {
         const instructor = clone.querySelector('.course-instructor');
         instructor.appendChild(document.createTextNode(course.class_instructor));
 
+        const courseButton = clone.querySelector('.course-button');
+        courseButton.addEventListener('click', () => {
+
+        })
+
         messageContainer.appendChild(clone);
 
         root.scrollIntoView({ behavior: 'smooth', block: 'end' });
     });
+}
+
+function setRootCSSVariables(element, position, height) {
+    element.style.setProperty('--class-div-position', `${position}px`);
+    element.style.setProperty('--class-div-height', `${height}px`);
 }

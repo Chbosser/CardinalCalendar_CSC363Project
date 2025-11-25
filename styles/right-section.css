@@ -24,6 +24,7 @@
   padding-left:18px;
   border-width: 2px;
   background-color: #F8F8F8;
+  outline: none;
 }
 
 .chat-form{
@@ -47,6 +48,7 @@
   border: none;
   margin-top: 20px;
   max-width: 70%;
+  line-height: 18px;
 }
 
 .ai {

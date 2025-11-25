@@ -19,14 +19,17 @@ body {
     flex-direction: column;
     row-gap: 6px;
     color: grey;
-    width: 250px;
-    height: 300px;  
+    width: 200px;
 }
 .course-title {
     color: black;
     font-weight: 700;
     font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 .section {
     color: grey;
     font-weight: 100;

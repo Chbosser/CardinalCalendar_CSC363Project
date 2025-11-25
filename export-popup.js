@@ -18,16 +18,16 @@
         VERSION: 2.0
         PRODID:-//CardinalCalendar`;
 
-
+    // dtstamp = when the event was created
+    // uid = name of class 
   classSchedule.forEach(course => {
     const dtstamp = new Date().toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
     const uid = Date.now() + "-" + "@CardinalCalendar";
 
-
     icsFileContent += 
     `BEGIN:VEVENT
       UID:${uid}
-      DTSTAMP:${dtstamp}
+      DTSTAMP:${dtstamp} 
       DTSTART:${course.start}
       DTEND:${course.end}
       SUMMARY:${course.className}
@@ -35,7 +35,8 @@
       });
 
       icsFileContent += "END:VCALENDAR"; 
-
+    
+    // creates the downloadable file 
     const blob = new Blob([icsFileContent], {type: "text/calendar; charset=utf-8"});
     const link = document.createElement("a"); 
     link.href = URL.createObjectURL(blob);

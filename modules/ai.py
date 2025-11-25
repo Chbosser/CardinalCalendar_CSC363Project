@@ -11,6 +11,9 @@ client = OpenAI(api_key=os.getenv("openai_api_key"))
 
 # What a user input should look like
 # "Hello, I am Elio. I am a 3rd year Computer Science Major looking to register for the Spring 2026 term. My required courses are CSC306 and CSC409. I also need to take 1 MATH elective and 2 CSC electives. I don't want friday classes and prefer not to have classes after 6PM"
+# "Hello, I am Elio. I am a 1st year Computer Science Major looking to register for the Spring 2026 term. My required courses are CSC306, CSC210, CSC223, and CSC322. I need1 PHIL elective and I dont want friday classes and. no classes after 6pm"
+#"Hello, I am Elio. I am a 1st year Computer Science Major looking to register for the Spring 2026 term. My required courses are CSC306, CSC210, CSC223, and CSC322. i have no electives and no hard constraints"
+
 
 def run_ai(user_input):
     class HardConstraints(BaseModel):

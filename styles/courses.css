@@ -26,21 +26,32 @@ body {
     color: black;
     font-weight: 700;
     font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.course-title-div {
+    color: black;
+    font-weight: 700;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .section {
     color: grey;
     font-weight: 100;
+    padding-right: 5px;
 }
 .course-description {
     font-size: 16px;
+    line-height: 1em;
 }
 .course-semester {
-    font-size: 14px;
+    font-size: 12px;
 }
 .course-semester > span {
-    background-color: lightgrey;
     color: rgb(112, 112, 112);
-    padding: 1px 4px 1px 4px;
     border-radius: 20px;
 }
 .course-time {

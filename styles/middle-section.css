@@ -1,3 +1,9 @@
+:root {
+  --class-div-position: 490px;
+  --class-div-height: 93px;
+}
+
+
 .middle-section{
   display: flex;
   flex-direction: column;
@@ -58,11 +64,11 @@
   width: 60%;
   background-color: #FB8484;
   border-radius: 8px;
-  height: 146px;
+  height: var(--class-div-height);
   position: absolute;
   z-index: 100;
   text-align: left;
-  top:80px;
+  top: var(--class-div-position);
   padding-top: 8px;
   padding-left: 8px;
   z-index:10;

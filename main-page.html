@@ -97,7 +97,7 @@
 
                 </div>
 
-                <div class="day-div">
+                <div class="day-div mon">
                   <div class="day-text-div">
                     <p class="day-text">Monday</p>
                   </div>
@@ -113,7 +113,7 @@
                   <div class="hour-block"></div>
                 </div>
 
-                <div class="day-div">
+                <div class="day-div tue">
                   <div class="day-text-div">
                     <p class="day-text">Tuesday</p>
                   </div>
@@ -129,7 +129,7 @@
                   <div class="hour-block"></div>
                 </div>
 
-                <div class="day-div">
+                <div class="day-div wed">
                   <div class="day-text-div">
                     <p class="day-text">Wednesday</p>
                   </div>
@@ -145,12 +145,12 @@
                   <div class="hour-block"></div>
                 </div>
 
-                <div class="day-div">
-                  <div class="class-div">
-                    <p class="class-ID">CSC 123</p>
-                    <p class="class-time">9:10am-10:30am</p>
-                    <p class="class-location">Pangborn G035</p>
-                  </div>
+                <div class="day-div thu">
+                  <!-- <div class="class-div">
+                    <p class="class-ID">MATH309</p>
+                    <p class="class-time">11:10AM-12:25PM</p>
+                    <p class="class-location">Ravi K</p>
+                  </div> -->
                   <div class="day-text-div">
                     <p class="day-text">Thursday</p>
                   </div>
@@ -166,7 +166,7 @@
                   <div class="hour-block"></div>
                 </div>
 
-                <div class="day-div">
+                <div class="day-div fri">
                   <div class="day-text-div">
                     <p class="day-text">Friday</p>
                   </div>
@@ -182,6 +182,13 @@
                   <div class="hour-block"></div>
                 </div>
           </div>
+          <template id = "class-div-template">
+            <div class="class-div">
+            <p class="class-ID"></p>
+            <p class="class-time"></p>
+            <p class="class-location"></p>
+          </div>
+          </template>
       </div>
     </div>
         
@@ -199,13 +206,15 @@
     <template id = "course-template">
       <div class = "course message system">
           <div class = "course-title">
+            <div class = "course-title-div">
               <span class = "section"></span>
+            </div>
+            <div class = "course-semester">
+                <span></span>
+            </div>
           </div>
           <div class = "course-description">
               
-          </div>
-          <div class = "course-semester">
-              <span></span>
           </div>
           <div class = "course-time">
               <img class = "icons" src = "frontend-testing/clock-circle-svgrepo-com.svg"><span style = "color: black;"></span>
@@ -215,7 +224,7 @@
                   <img class = "icons" src = "frontend-testing/user-alt-1-svgrepo-com.svg">
               </div>
               <div class = "course-add">
-                  <button>Add</button>
+                  <button class = "course-button">Add</button>
               </div>
           </div>
       </div>

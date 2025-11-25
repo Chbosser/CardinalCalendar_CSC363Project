@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel = "stylesheet" href = "style.css">
+        <link rel = "stylesheet" href = "courses.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -30,6 +31,8 @@
                         <div class = "message system">
                             Where should we begin?
                         </div>
+                        <div id = "course-container system">
+                        </div>
                     </div>
                     <div class = "chat-box-input2">
                         <div class = "wrapper2">
@@ -42,6 +45,30 @@
                 </div>
             </div>
         </div>
+        <template id = "course-template">
+            <div class = "course message system">
+                <div class = "course-title">
+                    <span class = "section"></span>
+                </div>
+                <div class = "course-description">
+                    
+                </div>
+                <div class = "course-semester">
+                    <span></span>
+                </div>
+                <div class = "course-time">
+                    <img class = "icons" src = "clock-circle-svgrepo-com.svg"><span style = "color: black;"></span>
+                </div>
+                <div class = "course-bottom">
+                    <div class = "course-instructor">
+                        <img class = "icons" src = "user-alt-1-svgrepo-com.svg">
+                    </div>
+                    <div class = "course-add">
+                        <button>Add</button>
+                    </div>
+                </div>
+            </div>
+        </template>
         <script src = "script.js">
         </script>
     </body>

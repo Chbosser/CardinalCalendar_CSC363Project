@@ -25,7 +25,7 @@
 }
 
 .time-div{
-  font-family: Amiri;
+  font-family: 'Amiri';
   color:#817F7F; 
   font-size: 14px;
   margin-top:50px;
@@ -46,7 +46,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  font-family: Amiri;
+  font-family: 'Amiri';
   color:#817F7F; 
   font-size: 14px;
   position: relative;

@@ -1,0 +1,82 @@
+body {
+    font-family: 'Manrope';
+}
+.container {
+    margin: auto;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.course {
+    border-style: solid;
+    border-color: lightgrey;
+    border-width: 1px;
+    padding: 8px 8px 8px 12px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 20px rgb(230, 230, 230);
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+    color: grey;
+    width: 250px;
+    height: 300px;  
+}
+.course-title {
+    color: black;
+    font-weight: 700;
+    font-size: 20px;
+}
+.section {
+    color: grey;
+    font-weight: 100;
+}
+.course-description {
+    font-size: 16px;
+}
+.course-semester {
+    font-size: 14px;
+}
+.course-semester > span {
+    background-color: lightgrey;
+    color: rgb(112, 112, 112);
+    padding: 1px 4px 1px 4px;
+    border-radius: 20px;
+}
+.course-time {
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+    font-size: 14px;
+}
+.course-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 5px;
+}
+.course-instructor {
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+    color: black;
+    font-weight: 400;
+}
+.course-add > button{
+    background-color: #B21F2C;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 3px 9px 3px 9px;
+}
+.course-add > button:hover {
+    opacity: 0.9;
+}
+
+
+
+.icons {
+    height: 18px;
+    width: 18px;
+    object-fit: contain;
+    object-position: center;
+}

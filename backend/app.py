@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 from backend.services.database import UserTable
 from flask_bcrypt import Bcrypt
 from flask_bcrypt import generate_password_hash, check_password_hash
-from modules.ai import get_response
+from modules.ai import get_response, run_ai
 
 app = Flask("__name__")
 CORS(app)
@@ -46,7 +46,10 @@ def login():
 @app.route('/cardinalcalendar', methods = ['POST', 'GET'])
 def user_input():
     if request.method == 'POST':
-        user_input = request.form.get('user-input')
+        user_input = request.form.get('chat-input')
+        result = run_ai(user_input)
+        return jsonify(result)
+
 
 @app.route('/api/chatbot', methods = ['POST', 'OPTIONS'])
 def chat_bot():

@@ -12,7 +12,13 @@ form.addEventListener('submit', async(event) => {
         }
     });
     const data = await response.json()
-    if (response.status == 200) {
+    if (data.success == true) {
+        console.log(data)
         window.location.href = "/main-page.html";
+    }
+    else {
+        console.log(data)
+        const message = document.querySelector('.login-valid');
+        message.classList.remove('hidden')
     }
 })

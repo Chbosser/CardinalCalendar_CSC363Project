@@ -123,20 +123,25 @@ function getRequiredCourses(data) {
                 setRootCSSVariables(classRoot, 820, 123);
             }
             else if (course.class_time === "3:40PM-6:10PM") {
-                setRootCSSVariables(classRoot, 820, 0);
+                setRootCSSVariables(classRoot, 820, 265);
             }
             else if (course.class_time === "5:10PM-7:40PM") {
-                setRootCSSVariables(classRoot, 965,295);
+                setRootCSSVariables(classRoot, 965,290);
             }
             else if (course.class_time === "5:10PM-6:25PM") {
                 setRootCSSVariables(classRoot, 965, 145);
             }
             else if (course.class_time === "6:10PM-8:40PM") {
-                setRootCSSVariables(classRoot, 0, 0);
+                setRootCSSVariables(classRoot, 1080, 290);
             }
             else if (course.class_time === "6:40PM-9:10PM") {
-                setRootCSSVariables(classRoot, 0, 0);
+                setRootCSSVariables(classRoot, 1150, 265);
             }
+
+            const closeButton = classRoot.querySelector('.close-class-div');
+            closeButton.addEventListener('click', () => {
+                classRoot.classList.add('delete');
+            })
 
             if (day === "Mon") {
                 monday.appendChild(classClone);

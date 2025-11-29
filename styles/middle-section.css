@@ -1,6 +1,6 @@
 :root {
-  --class-div-position:  965px;
-  --class-div-height: 145px;
+  --class-div-position:  820px;
+  --class-div-height: 265px;
   --class-div-color: #FB8484;
 }
 
@@ -129,5 +129,21 @@
   
 }
 
+.close-class-div {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: none;
+  background-color: transparent;
+}
+.close-class-div:hover {
+  opacity: 0.7;
+}
+.close-class-div:active {
+  opacity: 0.5;
+}
+.delete {
+  display: none;
+}
 
 

@@ -102,48 +102,52 @@ class QueryBuilder:
             string += ")"
             queries.append(string)
 
-        string = self.base_string()
+        if parameter['electives'] and parameter['hard_constraints']:
+            string = self.base_string()
 
         if "electives" in parameter:
-            string += "AND ("
-            for count, e in enumerate(parameter["electives"]):
-                if count == 0:
-                    string += f"\nclass.crs_code LIKE '{e}%' "
-                else:
-                    string += f"\nOR class.crs_code LIKE '{e}%' "
-            string += ")"
+            if parameter['electives']:
+                string += "AND ("
+                for count, e in enumerate(parameter["electives"]):
+                    if count == 0:
+                        string += f"\nclass.crs_code LIKE '{e}%' "
+                    else:
+                        string += f"\nOR class.crs_code LIKE '{e}%' "
+                string += ")"
         if "hard_constraints" in parameter and "unavailable_days" in parameter["hard_constraints"]:
-            string += "AND ("
-            for count, ua in enumerate(parameter["hard_constraints"]["unavailable_days"]):
-                if count == 0:
-                    string += f"\nclass_days NOT LIKE '%{ua}%' "
-                else:
-                    string += f"\nAND class_days NOT LIKE '%{ua}%' "
-            string += ")"
+            if parameter['hard_constraints']['unavailable_days']:
+                string += "AND ("
+                for count, ua in enumerate(parameter["hard_constraints"]["unavailable_days"]):
+                    if count == 0:
+                        string += f"\nclass_days NOT LIKE '%{ua}%' "
+                    else:
+                        string += f"\nAND class_days NOT LIKE '%{ua}%' "
+                string += ")"
         if "hard_constraints" in parameter and "no_class_after" in parameter["hard_constraints"]:
-            string += "AND (\n"
-            if parameter["hard_constraints"]["no_class_after"] == '6PM':
-                string += f"class_time NOT LIKE '%-6%PM' \n"
-                string += f"AND class_time NOT LIKE '%-7%PM' \n"
-                string += f"AND class_time NOT LIKE '%-8%PM' \n"
-                string += f"AND class_time NOT LIKE '%-9%PM' \n"
-            if parameter["hard_constraints"]["no_class_after"] == '5PM':
-                string += f"class_time NOT LIKE '%-5%PM' \n"
-                string += f"AND class_time NOT LIKE '%-6%PM' \n"
-                string += f"AND class_time NOT LIKE '%-7%PM' \n"
-                string += f"AND class_time NOT LIKE '%-8%PM' \n"
-                string += f"AND class_time NOT LIKE '%-9%PM' \n"
-            if parameter["hard_constraints"]["no_class_after"] == '4PM':
-                string += f"class_time NOT LIKE '%-4%PM' \n"
-                string += f"AND class_time NOT LIKE '%-5%PM' \n"
-                string += f"AND class_time NOT LIKE '%-6%PM' \n"
-                string += f"AND class_time NOT LIKE '%-7%PM' \n"
-                string += f"AND class_time NOT LIKE '%-8%PM' \n"
-                string += f"AND class_time NOT LIKE '%-9%PM' \n"
-            string += ")"
+            if parameter['hard_constraints']['no_class_after']:
+                string += "AND (\n"
+                if parameter["hard_constraints"]["no_class_after"] == '6PM':
+                    string += f"class_time NOT LIKE '%-6%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-7%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-8%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-9%PM' \n"
+                if parameter["hard_constraints"]["no_class_after"] == '5PM':
+                    string += f"class_time NOT LIKE '%-5%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-6%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-7%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-8%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-9%PM' \n"
+                if parameter["hard_constraints"]["no_class_after"] == '4PM':
+                    string += f"class_time NOT LIKE '%-4%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-5%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-6%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-7%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-8%PM' \n"
+                    string += f"AND class_time NOT LIKE '%-9%PM' \n"
+                string += ")"
 
             queries.append(string)
-            return queries
+        return queries
     
     def clear_values(self):
         self.values.clear()

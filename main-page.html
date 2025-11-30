@@ -29,17 +29,21 @@
 
     <div class="main-body"> <!--TRI section beneath Header-->
       <div class="left-section"> <!--Left Section that will have account and export button-->
-        <button class="settings-button"> <!--Account Button-->
-          <img src="icons/settings-icon.svg" class="settings-icon">
+        <button class="settings-button" onclick="toggleMenu()"> <!--Account Button-->
+          <img src="settings-icon.svg" class="settings-icon">
           <p class="settings-text">Settings</p>
         </button>
+        
+        <div id="settings-menu" class="settings-menu">
+          <button class="darkmode-button" onclick="setting()"><b>Dark Mode</b></button>
+        </div>
         <button class="export-button"> <!--Export Button-->
-          <img src="icons/upload.svg" class="export-icon">
+          <img src="upload.svg" class="export-icon">
           <p class="export-text">Export</p>
         </button>
         <a href = "sign-out.html">
         <button class="sign-out-button">
-          <img src="icons/sign-out.svg"class="sign-out-icon">
+          <img src="sign-out.svg"class="sign-out-icon">
           <p class="sign-out-text">Sign Out</p>
         </button>
         </a>

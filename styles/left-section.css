@@ -21,6 +21,22 @@
   margin-bottom:4px;
   
 }
+.settings-menu {
+  display: none;   /* hide whole menu */
+}
+.darkmode-button{
+  width: 70px;
+  background-color: transparent;
+  margin-top: 12px;
+  border: none;
+  margin-bottom:4px;
+  color: black;
+  font-size: 12px; 
+  cursor: pointer;
+}
+.darkmode-button:hover {
+  background-color: #e5e5e5;
+}
 
 .settings-icon{
   margin:0;
@@ -106,4 +122,3 @@
 .export-button:hover p{
   text-decoration: underline;
 }
-

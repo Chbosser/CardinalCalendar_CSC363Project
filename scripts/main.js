@@ -225,3 +225,17 @@ function setRootCSSVariables(element, position, height) {
     element.style.setProperty('--class-div-position', `${position}px`);
     element.style.setProperty('--class-div-height', `${height}px`);
 }
+
+function setting() {
+   var bodyElement = document.body;
+   bodyElement.classList.toggle("dark-mode");
+}
+
+function toggleMenu() {
+    const menu = document.getElementById('settings-menu');
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';  // Hide
+    } else {
+        menu.style.display = 'block'; // Show
+    }
+}

@@ -54,8 +54,20 @@
             <div class="toolbar">
               <div class="calendar-selector"> <!--Calendar Selection-->
                 <p class="calendar-name">
-                  SPRING 2026
+                  SELECT
                 </p>
+                <button class="calendar-dropdown-button">
+                  <img class="calendar-dropdown-button-icon" src="calendar-dropdown-button-icon.svg">
+                </button> 
+                <div class="calendar-dropdown-list" style="display:none; position:absolute; background:#fff; border:1px solid #ccc;">
+                </div>
+              </div>
+
+              <div> <!--Create Calendar Button-->
+                <button class="create-calendar-button">
+                  <img src="create-calendar-icon.svg" class="create-calendar-icon">
+                  <p class="tooltip">Create</p>
+                </button>
               </div>
 
               <div> <!--Rename Calendar-->

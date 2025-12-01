@@ -1,13 +1,20 @@
 const deleteButton = document.querySelector('.delete-calendar-button');
+
 deleteButton.addEventListener('click', () => {
     if (!currentCalendar) return alert("Select a calendar first");
 
-    if (!confirm(`Are you sure you want to delete "${currentCalendar}"?`)) return;
+    openPopup(
+        () => {
+            delete calendars[currentCalendar];
+            currentCalendar = null;
 
-    delete calendars[currentCalendar];
-    currentCalendar = null;
-
-    updateCalendarView();
-    updateCalendarName();     
-    updateDropdownList(); 
+            updateCalendarView();
+            updateCalendarName();
+            updateDropdownList();
+        },
+        "",                // defaultValue not needed
+        "Are you sure?",   // popup title
+        "confirm"          // mode = "confirm" hides input
+    );
 });
+

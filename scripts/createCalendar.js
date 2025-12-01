@@ -2,23 +2,31 @@ const calendars = {}; // Stores calendar data
 let currentCalendar = null;
 
 const createButton = document.querySelector('.create-calendar-button');
+
 createButton.addEventListener('click', () => {
-    const name = prompt("Enter calendar name:");
+    // Open the custom popup (instead of prompt)
+    openPopup((name) => {
 
-    if (!name) return;
+        if (!name || !name.trim()) return;
 
-    if (calendars[name]) {
-        alert("Calendar already exists!");
-        return;
-    }
+        if (calendars[name]) {
+            alert("Calendar already exists!");
+            return;
+        }
 
-    calendars[name] = {}; // empty object for events
-    currentCalendar = name;
+        // Create new calendar
+        calendars[name] = {}; 
+        currentCalendar = name;
 
-    updateCalendarView();
-    updateCalendarName(); 
-    updateDropdownList(); 
+        // Update UI
+        updateCalendarView();
+        updateCalendarName(); 
+        updateDropdownList(); 
+    });
 });
+
+
+
 
 
 const dropdownButton = document.querySelector('.calendar-dropdown-button');

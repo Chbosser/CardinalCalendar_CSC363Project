@@ -91,3 +91,7 @@ body {
     object-fit: contain;
     object-position: center;
 }
+
+.course-time-span {
+    color: black;
+}

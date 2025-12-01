@@ -52,6 +52,23 @@ body.dark-mode .right-section {
     background-color: #1a1a1a;
     color: #ffffff;
 }
+body.dark-mode .right-section .course-title-div {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+body.dark-mode .right-section .course {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    box-shadow: none;
+}
+body.dark-mode .right-section .course-time-span {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+body.dark-mode .right-section .course-instructor {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
 body.dark-mode .main-body {
     background-color: #1a1a1a;
     color: #ffffff;

@@ -29,17 +29,21 @@
 
     <div class="main-body"> <!--TRI section beneath Header-->
       <div class="left-section"> <!--Left Section that will have account and export button-->
-        <button class="settings-button"> <!--Account Button-->
-          <img src="icons/settings-icon.svg" class="settings-icon">
+        <button class="settings-button" onclick="toggleMenu()"> <!--Account Button-->
+          <img src="settings-icon.svg" class="settings-icon">
           <p class="settings-text">Settings</p>
         </button>
-        <button class="export-button"> <!--Export Button-->
-          <img src="icons/upload.svg" class="export-icon">
+        
+        <div id="settings-menu" class="settings-menu">
+          <button class="darkmode-button" onclick="setting()"><b>Dark Mode</b></button>
+        </div>
+        <button class="export-button" onclick="downloadICS()"> <!--Export Button-->
+          <img src="upload.svg" class="export-icon">
           <p class="export-text">Export</p>
         </button>
         <a href = "sign-out.html">
         <button class="sign-out-button">
-          <img src="icons/sign-out.svg"class="sign-out-icon">
+          <img src="sign-out.svg"class="sign-out-icon">
           <p class="sign-out-text">Sign Out</p>
         </button>
         </a>
@@ -56,14 +60,14 @@
 
               <div> <!--Rename Calendar-->
                 <button class="edit-calendar-button">
-                  <img src="icons/edit-calendar-icon.svg" class="edit-calendar-icon">
+                  <img src="edit-calendar-icon.svg" class="edit-calendar-icon">
                   <p class="tooltip">Rename</p>
                 </button>
               </div>
 
               <div> <!--Delete Calendar-->
                 <button class="delete-calendar-button">
-                  <img src="icons/delete-calendar-icon.svg" class="delete-calendar-icon">
+                  <img src="delete-calendar-icon.svg" class="delete-calendar-icon">
                   <p class="tooltip">Delete</p>
                 </button>
               </div>
@@ -249,15 +253,15 @@
       
 
 
+    <script src = "scripts/main.js"></script>
+    <script src = "scripts/createCalendar.js"></script>
+    <script src = "scripts/renameCalendar.js"></script>
+    <script src = "scripts/deleteCalendar.js"></script>
+    <script src = "scripts/export-popup.js"></script>
 
 
 
 
-
-
-    <script src = "scripts/main.js">
-
-    </script>
   </body>
 
 

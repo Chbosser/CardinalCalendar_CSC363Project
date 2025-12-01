@@ -239,3 +239,62 @@ function toggleMenu() {
         menu.style.display = 'block'; // Show
     }
 }
+
+
+function updateCalendarView() {
+    const container = document.querySelector('.block'); // your main calendar container
+    container.innerHTML = ""; // clear previous events
+
+    if (!currentCalendar) return;
+
+    const calendarEvents = calendars[currentCalendar]; // get current calendar events
+
+    for (let day in calendarEvents) {
+        const classTemplate = document.getElementById('class-div-template');
+        const classClone = classTemplate.content.cloneNode(true);
+        const classRoot = classClone.querySelector('.class-div');
+
+        const eventData = calendarEvents[day];
+        classRoot.querySelector('.class-ID').textContent = eventData.title || '';
+        classRoot.querySelector('.class-location').textContent = eventData.location || '';
+        classRoot.querySelector('.class-time').textContent = eventData.time || '';
+
+        container.appendChild(classClone);
+    }
+}
+
+function updateCalendarName() {
+    const nameElement = document.querySelector('.calendar-name');
+    if (currentCalendar) {
+        nameElement.textContent = currentCalendar;
+    } else {
+        nameElement.textContent = "Select";
+    }
+}
+
+function updateDropdownList() {
+    dropdownList.innerHTML = ""; 
+
+    for (let name in calendars) {
+        const item = document.createElement('div');
+        item.classList.add('calendar-dropdown-item');
+        item.textContent = name;
+
+        item.addEventListener('click', () => {
+            currentCalendar = name;
+            updateCalendarView();
+            updateCalendarName();
+            dropdownList.style.display = 'none';
+        });
+
+        dropdownList.appendChild(item);
+    }
+}
+
+
+function addEventToCurrentCalendar(day, eventData) {
+    if (!currentCalendar) return;
+    calendars[currentCalendar][day] = eventData;
+    updateCalendarView();
+}
+

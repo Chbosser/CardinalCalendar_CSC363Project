@@ -1,51 +1,39 @@
-'use strict'
-
 const input = document.querySelector('.chat-text-box');
 const messageContainer = document.querySelector('.messages');
 const template = document.getElementById('course-template');
 const r = document.querySelector(':root');
+const calendarName = document.getElementById('calendar-name');
 
-input.addEventListener('keydown', async (event) => {
+
+// Make the name editable when clicked
+calendarName.addEventListener('click', () => {
+    calendarName.setAttribute('contenteditable', 'true');
+    calendarName.focus();
+
+    // Select all text automatically
+    const range = document.createRange();
+    range.selectNodeContents(calendarName);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+});
+
+// Finish editing (save + disable editing)
+function finishEditing() {
+    calendarName.removeAttribute('contenteditable');
+}
+
+// Save on click away
+calendarName.addEventListener('blur', finishEditing);
+
+// Save on Enter key
+calendarName.addEventListener('keydown', event => {
     if (event.key === "Enter") {
-        if (input.value === '') {
-            console.log('user input empty');
-        }
-        else {
-            const userInput = input.value;
-            
-            const newUserMessage = document.createElement('div');
-            newUserMessage.textContent = userInput;
-            newUserMessage.classList.add('message');
-            newUserMessage.classList.add('user');
-            messageContainer.appendChild(newUserMessage);
-
-            input.value = ' ';
-            newUserMessage.scrollIntoView({'behavior': 'smooth'});
-            const formData = new FormData();
-            formData.append('chat-input', userInput);
-
-            const response = await fetch('http://127.0.0.1:8000/cardinalcalendar', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-
-            const data = await response.json(); // data is a list of objects in a list
-            if (response.status === 200) {
-                const requiredCourses = JSON.parse(data[0]); // gets the first list of objects (required courses)
-                const otherCourses = JSON.parse(data[1]); // gets the second list of objects (courses != required courses)
-                getRequiredCourses(requiredCourses);
-                getOtherCourses(otherCourses);
-
-
-
-            }
-        }
-
+        event.preventDefault();
+        finishEditing();
+        calendarName.blur();
     }
-})
+});
 function getRequiredCourses(data) {
 
     const classTemplate = document.getElementById('class-div-template');
@@ -268,7 +256,7 @@ function updateCalendarName() {
     if (currentCalendar) {
         nameElement.textContent = currentCalendar;
     } else {
-        nameElement.textContent = "Select";
+        nameElement.textContent = "Untitled";
     }
 }
 
@@ -298,43 +286,3 @@ function addEventToCurrentCalendar(day, eventData) {
     updateCalendarView();
 }
 
-function openPopup(onConfirm, defaultValue = "", title = "Enter Calendar Name", mode = "input") {
-    const popup = document.getElementById("popup");
-    const overlay = document.getElementById("popup-overlay");
-    const confirmBtn = document.getElementById("popup-confirm");
-    const cancelBtn = document.getElementById("popup-cancel");
-    const inputWrapper = document.getElementById("popup-input-wrapper");
-    const input = document.getElementById("popup-input");
-    const popupTitle = document.getElementById("popup-title");
-
-    // Set the popup title
-    popupTitle.textContent = title;
-
-    // Show popup and overlay
-    popup.style.display = "block";
-    overlay.style.display = "block";
-
-    // Show or hide input depending on mode
-    if (mode === "confirm") {
-        inputWrapper.style.display = "none";  // hide input for delete
-    } else {
-        inputWrapper.style.display = "block"; // show input for create/rename
-        input.value = defaultValue;
-        input.focus();
-    }
-
-    // Confirm button
-    confirmBtn.onclick = () => {
-        const value = mode === "input" ? input.value.trim() : true;
-        onConfirm(value);
-        closePopup();
-    };
-
-    // Cancel button
-    cancelBtn.onclick = closePopup;
-
-    function closePopup() {
-        popup.style.display = "none";
-        overlay.style.display = "none";
-    }
-}

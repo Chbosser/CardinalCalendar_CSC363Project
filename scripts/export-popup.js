@@ -43,7 +43,8 @@
     const blob = new Blob([icsFileContent], {type: "text/calendar; charset=utf-8"});
     const link = document.createElement("a"); 
     link.href = URL.createObjectURL(blob);
-    link.download = "weekly_schedule.ics"; 
+    let fileName = localStorage.getItem("calendarName");
+    link.download = fileName + ".ics";  
     link.click();
 
  }

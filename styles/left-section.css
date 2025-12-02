@@ -1,5 +1,5 @@
 .left-section{
-  height: 100vh;
+  
   width: 72px;
   display: flex;
   flex-direction: column;
@@ -7,8 +7,10 @@
   align-items: center;
   border-right-color: #E1DEDE;
   border-right-width: 3px;
-  position:fixed;
-  top:70px;
+  position: fixed;
+  top:0;
+  bottom:0;
+  padding-top:70px;
   background-color: white;
   z-index: 40;
 }
@@ -87,10 +89,10 @@
 .sign-out-button{
   width: 72px;
   background-color: transparent;
-  margin-top: 8px;
   border: none;
-  margin-top: 525px;
-  margin-bottom: 8px;
+  position: absolute;
+  bottom:8px;
+  left:0;
 }
 
 .sign-out-icon{

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="styles/toolbar.css">
     <link rel="stylesheet" href="styles/right-section.css">
     <link rel="stylesheet" href = "styles/courses.css">
+  
   </head>
 
   <body style="margin: 0; font-family: 'Amiri';">
@@ -37,7 +38,7 @@
         <div id="settings-menu" class="settings-menu">
           <button class="darkmode-button" onclick="setting()"><b>Dark Mode</b></button>
         </div>
-        <button class="export-button" onclick="downloadICS()"> <!--Export Button-->
+        <button class="export-button" onclick = "downloadICS()"> <!--Export Button-->
           <img src="icons/upload.svg" class="export-icon">
           <p class="export-text">Export</p>
         </button>
@@ -53,29 +54,13 @@
         <div class="top-section">
             <div class="toolbar">
               <div class="calendar-selector"> <!--Calendar Selection-->
-                <p class="calendar-name">
-                  SELECT
-                </p>
-                <button class="calendar-dropdown-button">
-                  <img class="calendar-dropdown-button-icon" src="calendar-dropdown-button-icon.svg">
-                </button> 
+                <p class="calendar-name"
+                  id="calendar-name" class="calendar-name">Untitled
+                </p> 
                 <div class="calendar-dropdown-list" style="display:none; position:absolute; background:#fff; border:1px solid #ccc;">
                 </div>
               </div>
 
-              <div> <!--Create Calendar Button-->
-                <button class="create-calendar-button">
-                  <img src="create-calendar-icon.svg" class="create-calendar-icon">
-                  <p class="tooltip">Create</p>
-                </button>
-              </div>
-
-              <div> <!--Rename Calendar-->
-                <button class="edit-calendar-button">
-                  <img src="icons/edit-calendar-icon.svg" class="edit-calendar-icon">
-                  <p class="tooltip">Rename</p>
-                </button>
-              </div>
 
               <div> <!--Delete Calendar-->
                 <button class="delete-calendar-button">
@@ -87,19 +72,17 @@
               <div id="popup-overlay"></div>
 
               <div id="popup" class="popup">
-                <h3 id="popup-title">Enter Calendar Name</h3>
-
-                <!-- Input wrapper (can be hidden for delete) -->
-                <div id="popup-input-wrapper">
+                <h3 id="popup-title">Are you sure?</h3>
+                <div id="popup-input-wrapper" style="display: none;">
                   <input type="text" id="popup-input" placeholder="Type here...">
                 </div>
 
                 <div class="popup-buttons">
                   <button id="popup-cancel">Cancel</button>
-                  <button id="popup-confirm">Confirm</button>
+                  <button id="popup-confirm">Delete</button>
                 </div>
               </div>
-              
+
             </div>
             <div class="block">
 
@@ -267,11 +250,11 @@
               
           </div>
           <div class = "course-time">
-              <img class = "icons" src = "frontend-testing/clock-circle-svgrepo-com.svg"><span class = "course-time-span"></span>
+              <img class = "icons" src = "icons/clock-circle-svgrepo-com.svg"><span style = "color: black;"></span>
           </div>
           <div class = "course-bottom">
               <div class = "course-instructor">
-                  <img class = "icons" src = "frontend-testing/user-alt-1-svgrepo-com.svg">
+                  <img class = "icons" src = "icons/user-alt-1-svgrepo-com.svg">
               </div>
               <div class = "course-add">
                   <button class = "course-button">Add</button>
@@ -283,13 +266,8 @@
 
 
     <script src = "scripts/main.js"></script>
-    <script src = "scripts/createCalendar.js"></script>
-    <script src = "scripts/renameCalendar.js"></script>
     <script src = "scripts/deleteCalendar.js"></script>
     <script src = "scripts/export-popup.js"></script>
-
-
-
 
   </body>
 

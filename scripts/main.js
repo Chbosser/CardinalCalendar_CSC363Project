@@ -1,91 +1,70 @@
-const input = document.querySelector('.chat-text-box');
+const input = document.getElementById('user-input-important')
 const messageContainer = document.querySelector('.messages');
 const template = document.getElementById('course-template');
 const r = document.querySelector(':root');
-localStorage.setItem('parsed', 'false');
-let userInput = null;
+
 let otherCourses = null;
 input.addEventListener('keydown', async (event) => {
     if (event.key === "Enter") {
         if (input.value === '') {
             console.log('user input empty');
         }
-        let parsed = localStorage.getItem('parsed');
-        if (parsed === 'false') {
-            userInput = input.value;
-            
-            const newUserMessage = document.createElement('div');
-            newUserMessage.textContent = userInput;
-            newUserMessage.classList.add('message');
-            newUserMessage.classList.add('user');
-            messageContainer.appendChild(newUserMessage);
 
-            input.value = ' ';
-            newUserMessage.scrollIntoView({'behavior': 'smooth'});
-            const formData = new FormData();
-            formData.append('chat-input', userInput);
+        userInput = input.value;
+        
+        addUserMessage(input);
 
-            const response = await fetch('http://127.0.0.1:8000/cardinalcalendar', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
+        input.value = ' ';
+        const formData = new FormData();
+        formData.append('chat-input', userInput);
 
-            const data = await response.json(); // data is a list of objects in a list
-            if (response.status === 200) {
-                const requiredCourses = JSON.parse(data[0]); // gets the first list of objects (required courses)
-                otherCourses = JSON.parse(data[1]); // gets the second list of objects (courses != required courses)
-                getRequiredCourses(requiredCourses);
-                //getOtherCourses(otherCourses);
-                localStorage.setItem('parsed', 'true')
+        const response = await fetch('http://127.0.0.1:8000/cardinalcalendar', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
 
-
+        const data = await response.json(); // data is a list of objects in a list
+        if (response.status === 200) {
+            const requiredCourses = JSON.parse(data[0]); // gets the first list of objects (required courses)
+            otherCourses = JSON.parse(data[1]); // gets the second list of objects (courses != required courses)
+            getRequiredCourses(requiredCourses);
+            //getOtherCourses(otherCourses);
+            localStorage.setItem('parsed', 'true')
+        }
+        
+        const formData2 = new FormData();
+        console.log(otherCourses);
+        formData2.append('other', JSON.stringify(otherCourses));
+        formData2.append('input', userInput);
+        const response2 = await fetch('http://127.0.0.1:8000/chatbot', {
+            method: 'POST',
+            body: formData2,
+            headers: {
+                'Accept': 'application/json'
             }
         }
-        else {
-            let convoid = localStorage.getItem('convoid');
-
-            if (convoid === null) {
-                const response = await fetch('http://127.0.0.1:8000/createconversation', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json'
-                }
-                }) 
-                const data = await response.json();
-                const getConvoID = data.convoid;
-                localStorage.setItem('convoid', getConvoID);
-                convoid = getConvoID;
-            } else {
-                const formData = new FormData();
-                console.log(otherCourses);
-                formData.append('convoid', localStorage.getItem('convoid'))
-                formData.append('other', JSON.stringify(otherCourses));
-                formData.append('input', userInput);
-                const response = await fetch('http://127.0.0.1:8000/chatbot', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                }
-                )
-                const data = await response.json()
-                const newSystemMessage = document.createElement('div');
-                newSystemMessage.textContent = data;
-                newSystemMessage.classList.add('message');
-                newSystemMessage.classList.add('system');
-                messageContainer.append(newSystemMessage);
-            }
-            
-
-        }
-
+        )
+        const data2 = await response2.json()
+        const aiChosenCourses = JSON.parse(data2);
+        getOtherCourses(aiChosenCourses);
     }
     
 })
+
+function addUserMessage(inputElement) {
+    value = inputElement.value;
+    const newUserMessage = document.createElement('div');
+    newUserMessage.textContent = value;
+    newUserMessage.classList.add('message');
+    newUserMessage.classList.add('user');
+    messageContainer.appendChild(newUserMessage);
+    newUserMessage.scrollIntoView({'behavior': 'smooth'});
+}
+
+
 const calendarName = document.getElementById('calendar-name');
 
 

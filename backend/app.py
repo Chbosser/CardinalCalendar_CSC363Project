@@ -3,20 +3,12 @@ from flask_cors import CORS, cross_origin
 from backend.services.database import UserTable
 from flask_bcrypt import Bcrypt
 from flask_bcrypt import generate_password_hash, check_password_hash
-from modules.ai import get_response, run_ai, create_conversationID, conversate_with_ai
+from modules.ai import run_ai, conversate_with_ai
 
 app = Flask("__name__")
 CORS(app)
 
-
 flask_bcrypt = Bcrypt(app)
-
-@app.route("/api")
-def index():
-    result = {
-        "message": 'hi'
-    }
-    return jsonify(result)
 
 @app.route("/register", methods = ['GET', 'POST'])
 def register():
@@ -43,24 +35,6 @@ def login():
         else:
             return jsonify({'success': False})
         
-
-
-@app.route('/createconversation', methods = ['POST', 'GET'])
-def create_conversation():
-    convo = create_conversationID()
-    return jsonify({'convoid': convo.id})
-
-@app.route('/chatbot', methods = ['POST', 'GET'])
-def conversate():
-    print('in conversate flaska pp')
-    convoid = request.form.get('convoid')
-    courses = request.form.get('other')
-    ui = request.form.get('input')
-    print(courses)
-    result = conversate_with_ai(convoid, courses, ui)
-    return jsonify(result)
-    
-
 @app.route('/cardinalcalendar', methods = ['POST', 'GET'])
 def user_input():
     if request.method == 'POST':
@@ -68,16 +42,37 @@ def user_input():
         result = run_ai(user_input)
         return jsonify(result)
 
-
-@app.route('/api/chatbot', methods = ['POST', 'OPTIONS'])
-def chat_bot():
-    if request.method == "OPTIONS":
-        return '', 200
-    if request.method == "POST":
-        print(request.form.get('chat-input'))
-        print(f'this is the string that i am supposed to get from the frontend.... {request.form.get('chat-input')}')
-        string = get_response(request.form.get('chat-input'))
-        return jsonify(string)
+@app.route('/chatbot', methods = ['POST', 'GET'])
+def conversate():
+    # convoid = request.form.get('convoid')
+    courses = request.form.get('other')
+    ui = request.form.get('input')
+    result = conversate_with_ai(courses, ui)
+    return jsonify(result)
 
 if __name__ == "__main__":
     app.run(debug=True, port = 8000)
+        
+# @app.route("/api")
+# def index():
+#     result = {
+#         "message": 'hi'
+#     }
+#     return jsonify(result)
+
+# @app.route('/createconversation', methods = ['POST', 'GET'])
+# def create_conversation():
+#     convo = create_conversationID()
+#     return jsonify({'convoid': convo.id})
+
+
+
+# @app.route('/api/chatbot', methods = ['POST', 'OPTIONS'])
+# def chat_bot():
+#     if request.method == "OPTIONS":
+#         return '', 200
+#     if request.method == "POST":
+#         print(request.form.get('chat-input'))
+#         print(f'this is the string that i am supposed to get from the frontend.... {request.form.get('chat-input')}')
+#         string = get_response(request.form.get('chat-input'))
+#         return jsonify(string)

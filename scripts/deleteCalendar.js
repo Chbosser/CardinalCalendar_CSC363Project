@@ -27,6 +27,10 @@ function openPopup(onConfirm, defaultValue = "", title = "Enter Calendar Name", 
     confirmBtn.onclick = () => {
         const value = mode === "input" ? input.value.trim() : true;
         onConfirm(value);
+        const calendars = document.querySelectorAll('.class-div');
+        calendars.forEach(classDiv => {
+        classDiv.classList.add('delete');
+        });
         closePopup();
     };
 

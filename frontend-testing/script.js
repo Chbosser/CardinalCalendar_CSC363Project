@@ -41,7 +41,7 @@ input.addEventListener('keydown', async(event) => {
 
         const userInput = document.querySelector('.wrapper');
         const formData = new FormData(userInput);
-        const response = await fetch(calendarURL, {
+        const response = await fetch(chatbotURL, {
             method: "POST",
             body: formData,
             headers: {
@@ -91,7 +91,7 @@ input2.addEventListener('keydown', async (event) => {
 
         const formData = new FormData();
         formData.append("chat-input", text)
-        const response = await fetch(calendarURL, {
+        const response = await fetch(chatbotURL, {
             method: "POST",
             body: formData,
             headers: {

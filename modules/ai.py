@@ -82,3 +82,28 @@ def get_response(user_input):
     )
     print(chatbot_client.output_text)
     return chatbot_client.output_text
+
+
+def create_conversationID():
+    conversation = client.conversations.create(
+        metadata={"topic": "course scheduling"}
+    )
+    return conversation
+
+def conversate_with_ai(id, electives, ui):
+    print('hiiiiiii')
+    content = f'Electives {electives}\nUser Input: {ui}'
+    convoid = id
+    response = client.responses.create(
+        model='gpt-5-nano',
+        conversation =convoid,
+        instructions="Given the list of ELECTIVES, you are going to try and figure out the best options for the user to take in their next semester by ASKING QUESTIONS nothing more. If given a new set of electives/classes, assume it is a different user., If the user's input has something along the lines 'my required classes are..., ignore that and only focus on what electives they need. Your job is to focus on the electives not the required classes. Ask 2 questions at most.",
+        input = [
+            {
+                'role': 'user',
+                'content': content
+            }
+        ]
+    )
+    print(response)
+    return response.output[1].content[0].text

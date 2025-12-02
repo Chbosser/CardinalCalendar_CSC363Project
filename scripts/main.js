@@ -4,14 +4,17 @@ const input = document.querySelector('.chat-text-box');
 const messageContainer = document.querySelector('.messages');
 const template = document.getElementById('course-template');
 const r = document.querySelector(':root');
-
+localStorage.setItem('parsed', 'false');
+let userInput = null;
+let otherCourses = null;
 input.addEventListener('keydown', async (event) => {
     if (event.key === "Enter") {
         if (input.value === '') {
             console.log('user input empty');
         }
-        else {
-            const userInput = input.value;
+        let parsed = localStorage.getItem('parsed');
+        if (parsed === 'false') {
+            userInput = input.value;
             
             const newUserMessage = document.createElement('div');
             newUserMessage.textContent = userInput;
@@ -35,16 +38,55 @@ input.addEventListener('keydown', async (event) => {
             const data = await response.json(); // data is a list of objects in a list
             if (response.status === 200) {
                 const requiredCourses = JSON.parse(data[0]); // gets the first list of objects (required courses)
-                const otherCourses = JSON.parse(data[1]); // gets the second list of objects (courses != required courses)
+                otherCourses = JSON.parse(data[1]); // gets the second list of objects (courses != required courses)
                 getRequiredCourses(requiredCourses);
-                getOtherCourses(otherCourses);
-
+                //getOtherCourses(otherCourses);
+                localStorage.setItem('parsed', 'true')
 
 
             }
         }
+        else {
+            let convoid = localStorage.getItem('convoid');
+
+            if (convoid === null) {
+                const response = await fetch('http://127.0.0.1:8000/createconversation', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                }
+                }) 
+                const data = await response.json();
+                const getConvoID = data.convoid;
+                localStorage.setItem('convoid', getConvoID);
+                convoid = getConvoID;
+            } else {
+                const formData = new FormData();
+                console.log(otherCourses);
+                formData.append('convoid', localStorage.getItem('convoid'))
+                formData.append('other', JSON.stringify(otherCourses));
+                formData.append('input', userInput);
+                const response = await fetch('http://127.0.0.1:8000/chatbot', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }
+                )
+                const data = await response.json()
+                const newSystemMessage = document.createElement('div');
+                newSystemMessage.textContent = data;
+                newSystemMessage.classList.add('message');
+                newSystemMessage.classList.add('system');
+                messageContainer.append(newSystemMessage);
+            }
+            
+
+        }
 
     }
+    
 })
 function getRequiredCourses(data) {
 

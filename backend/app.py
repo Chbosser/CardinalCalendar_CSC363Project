@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 from backend.services.database import UserTable
 from flask_bcrypt import Bcrypt
 from flask_bcrypt import generate_password_hash, check_password_hash
-from modules.ai import get_response, run_ai
+from modules.ai import get_response, run_ai, create_conversationID, conversate_with_ai
 
 app = Flask("__name__")
 CORS(app)
@@ -42,6 +42,24 @@ def login():
             return jsonify({'success': True})
         else:
             return jsonify({'success': False})
+        
+
+
+@app.route('/createconversation', methods = ['POST', 'GET'])
+def create_conversation():
+    convo = create_conversationID()
+    return jsonify({'convoid': convo.id})
+
+@app.route('/chatbot', methods = ['POST', 'GET'])
+def conversate():
+    print('in conversate flaska pp')
+    convoid = request.form.get('convoid')
+    courses = request.form.get('other')
+    ui = request.form.get('input')
+    print(courses)
+    result = conversate_with_ai(convoid, courses, ui)
+    return jsonify(result)
+    
 
 @app.route('/cardinalcalendar', methods = ['POST', 'GET'])
 def user_input():

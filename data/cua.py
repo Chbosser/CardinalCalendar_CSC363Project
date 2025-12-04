@@ -70,31 +70,26 @@ def loop_through_subjects(sub, final_term):
     #     print(summary.text)
 
     # for title, summary, desc in zip(class_titles, summaries, cc):
-    #     print(f"Course: {title.text}\nTable: {summary.text}\nContent: {desc.text}\n")
-
-    # for summary in summaries:
-    #     x = summary.find_elements(By.TAG_NAME, "th")
-    #     table_summary = summary.find_elements(By.TAG_NAME, "td")
-    #     for t, data in zip(x, table_summary):
-    #         print(f"{t.text} ---> {data.text}")
+    #     print(f"course: {title.text}\ntable: {summary.text}\ncontent: {desc.text}\n")
 
     # for title, desc in zip(class_titles, cc):
-    #     print(f"Course: {title.text}\nContent: {desc.text}\n")
+    #     print(f"course: {title.text}\ncontent: {desc.text}\n")
 
     for title, desc, table in zip(class_titles, cc, summaries):
         string_title = title.text.split()
-        code = string_title[0]
-        string_title.pop(0)
-        rest = " ".join(string_title)
-        more = rest.split("(")
-        cred = more[1]
-        cred = cred[0]
-        #print(f"\n===== {code} {rest} =====")
-        #print(f"Description: {desc.text}\n")
+        #["CSC306", "Introduction", "to", "Operating", "Systems", "(3", "cr.)"] # <-- what split does from string_title
+        code = string_title[0] # <-- gets class code
+        string_title.pop(0) # <-- remove sfrom rest of list
+        rest = " ".join(string_title) # <-- joins rest of lst
+        more = rest.split("(") # <-- split at the credit so [..., 3 cr.)] remains
+        cred = more[1] # gets the credit part of list
+        cred = cred[0] # gets credit since the number is the first character of the string (in this case, the list is the string of 3 cr.))
+
+        #print(f"description: {desc.text}\n")
 
         rows = table.find_elements(By.TAG_NAME, "tr")
 
-        headers = [h.text for h in rows[0].find_elements(By.TAG_NAME, "th")]  # column names
+        headers = [h.text for h in rows[0].find_elements(By.TAG_NAME, "th")]  #column names since the first row of the th tag aren't data to classes
         cur.execute(
     """
     INSERT INTO COURSE (CRS_CODE, SUBJECT_NAME, TERM, CRS_NAME, CRS_DESC, CRS_CREDIT)
@@ -102,20 +97,19 @@ def loop_through_subjects(sub, final_term):
     """,
     (code, sub, final_term, rest, desc.text, cred)
         )
-        # Loop through all section rows except the header row
+        #loop through all section rows except the header row thats why we start with rows[1:]
         course_data = {}
         for row in rows[1:]:
             values = [d.text for d in row.find_elements(By.TAG_NAME, "td")]
             #print(f"VALUESSSSSSSSSS: {values}")
-            # Display each section (row)
-            #print("\n--- Section ---")
+            #display each section (row)
             for h, v in zip(headers, values):
                 if h.lower() == "time":
                     parts = v.split("   ")
                     parts = parts[1]
                     new = parts.split()
                     new = "".join(new)
-                    #print(f"Time: {new}")
+                    #print(f"time: {new}")
                     course_data[h] = new
                 else:
                     #print(f"{h}: {v}")
@@ -141,10 +135,6 @@ def loop_through_subjects(sub, final_term):
     )
         )
 
-
-
-
-        #print("\n----------------------\n")
         #print(f"{course_data.get("Sec")}, {course_data.get("Day")}, {course_data.get("Time")}, {course_data.get("Instructor")}, {course_data.get("Instruction Mode")}, {course_data.get("Location")}")
 
 

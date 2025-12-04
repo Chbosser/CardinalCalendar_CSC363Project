@@ -30,16 +30,15 @@ input.addEventListener('keydown', async (event) => {
         if (response.status === 200) {
             const requiredCourses = JSON.parse(data[0]); // gets the first list of objects (required courses)
             otherCourses = JSON.parse(data[1]); // gets the second list of objects (courses != required courses)
-            getRequiredCourses(requiredCourses);
-            getOtherCourses(otherCourses);
-            localStorage.setItem('parsed', 'true')
+            setRequiredCourses(requiredCourses);
+            //getOtherCourses(otherCourses);
         }
         
         const formData2 = new FormData();
         console.log(otherCourses);
         formData2.append('other', JSON.stringify(otherCourses));
         formData2.append('input', userInput);
-        const response2 = await fetch('http://127.0.0.1:8000/chatbot', {
+        const response2 = await fetch('http://127.0.0.1:8000/electives', {
             method: 'POST',
             body: formData2,
             headers: {
@@ -49,7 +48,7 @@ input.addEventListener('keydown', async (event) => {
         )
         const data2 = await response2.json()
         const aiChosenCourses = JSON.parse(data2);
-        getOtherCourses(aiChosenCourses);
+        displayElectives(aiChosenCourses);
     }
     
 })
@@ -97,10 +96,11 @@ calendarName.addEventListener('keydown', event => {
         calendarName.blur();
     }
 });
-function getRequiredCourses(data) {
+function setRequiredCourses(data) {
 
     const classTemplate = document.getElementById('class-div-template');
     
+    // list of generated pastel colors
     const courseColors = [
         "#A7C7E7", // light periwinkle
         "#B8E1C6", // mint green
@@ -109,8 +109,6 @@ function getRequiredCourses(data) {
         "#FFF6A7", // soft yellow
         "#FFE4C4", // peach cream
         "#B7E0FF", // sky blue
-
-        // ---- additional pastel colors ----
         "#C4F1BE", // pale mint
         "#FFC9DE", // soft rose
         "#E7D3FF", // soft lilac
@@ -227,7 +225,7 @@ function getRequiredCourses(data) {
 }
 
 
-function getOtherCourses(data) {
+function displayElectives(data) {
 
     data.forEach(course => {
         const clone = template.content.cloneNode(true);
@@ -278,7 +276,7 @@ function getOtherCourses(data) {
         courseButton.addEventListener('click', () => {
             const sinlgeCourse = []
             sinlgeCourse.push(course)
-            getRequiredCourses(sinlgeCourse);
+            setRequiredCourses(sinlgeCourse);
 
         })
 

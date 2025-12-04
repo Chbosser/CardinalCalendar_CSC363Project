@@ -48,7 +48,7 @@ def user_input():
 
         return jsonify(result)
 
-@app.route('/chatbot', methods = ['POST', 'GET'])
+@app.route('/electives', methods = ['POST', 'GET'])
 def electives():
     electives = request.form.get('other')
     user_input = request.form.get('input')

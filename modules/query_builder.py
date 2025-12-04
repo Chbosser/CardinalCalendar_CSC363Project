@@ -89,7 +89,7 @@ class QueryBuilder:
             string += ")"
         return string
     
-    def build_sqlv2(self, parameter: dict) -> list:
+    def create_sql_query(self, parameter: dict) -> list:
         queries = []
         string = self.base_string()
         if "required_courses" in parameter:

@@ -1,0 +1,15 @@
+User Input Tests:
+
+Inputs with No Personal Interests
+
+- I am a 3rd year Computer Science Major looking to register for the Spring 2026 term. My required courses are CSC306 and CSC409. I also need to take 1 MATH elective and 2 CSC electives. I don't want friday classes and prefer not to have classes after 6PM
+
+- I am a 1st year Computer Science Major looking to register for the Spring 2026 term. My required courses are CSC306, CSC210, CSC223, and CSC322. I need 1 PHIL elective and I dont want friday classes and. no classes after 6pm
+
+- I am a 1st year Computer Science Major looking to register for the Spring 2026 term. My required courses are CSC306, CSC210, CSC223, and CSC322. i have no electives and no hard constraints
+
+Inputs with Personal Intersts:
+
+- I am a 3rd year Computer Science Major looking to register for the Spring 2026 term. My required courses are CSC306 and CSC409. I also need to take 1 MATH elective and 2 CSC electives. I don't want friday classes and prefer not to have classes after 6PM. I like graph theory classes and I want computer science electives that can help me land a software engineering job.
+
+- I am a 3rd year Computer Science Major looking to register for the Spring 2026 term. My required courses are CSC306 and CSC409. I also need to take 1 MATH elective and 2 CSC electives. I don't want friday classes and prefer not to have classes after 6PM. I like mathematical finance classes and I want computer science electives that can help me land a job unrelated to software engineering.

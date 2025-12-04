@@ -100,14 +100,30 @@ calendarName.addEventListener('keydown', event => {
 function getRequiredCourses(data) {
 
     const classTemplate = document.getElementById('class-div-template');
+    
     const courseColors = [
-    "#A7C7E7", // light periwinkle
-    "#B8E1C6", // mint green
-    "#FFD6E0", // baby pink
-    "#D9C3FF", // lavender
-    "#FFF6A7", // soft yellow
-    "#FFE4C4", // peach cream
-    "#B7E0FF"  // sky blue
+        "#A7C7E7", // light periwinkle
+        "#B8E1C6", // mint green
+        "#FFD6E0", // baby pink
+        "#D9C3FF", // lavender
+        "#FFF6A7", // soft yellow
+        "#FFE4C4", // peach cream
+        "#B7E0FF", // sky blue
+
+        // ---- additional pastel colors ----
+        "#C4F1BE", // pale mint
+        "#FFC9DE", // soft rose
+        "#E7D3FF", // soft lilac
+        "#FFF1B5", // pale butter
+        "#FFE8CC", // light apricot
+        "#CDEBFF", // icy blue
+        "#D0F0C0", // tea green
+        "#FADADD", // light blush
+        "#EAD7FF", // pastel violet
+        "#FFF8C9", // pastel cream
+        "#FFEAD6", // light peach
+        "#CAE8FF", // baby cloud blue
+        "#E3F6D9"  // pastel sage
     ];
 
     data.forEach(course => {

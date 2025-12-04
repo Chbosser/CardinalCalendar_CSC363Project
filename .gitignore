@@ -2,3 +2,5 @@
 gpt-5-nano.py
 ignore/
 frontend-testing/
+.pytest_cache/
+.vscode/

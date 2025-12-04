@@ -14,7 +14,7 @@ form.addEventListener('submit', async(event) => {
     const data = await response.json()
     if (data.success == true) {
         console.log(data)
-        window.location.href = "/main-page.html";
+        window.location.href = "/frontend/main-page.html";
     }
     else {
         console.log(data)

@@ -1,7 +1,6 @@
 import pytest
-from modules.module1 import Parameter
+from modules.parameter_executer import ExecuteParameter
 import json
-from data.curriculum import cs_curriculum
 
 parametersv1 = [
 # ID: CSC1
@@ -132,8 +131,17 @@ parametersv2 = [
 
 @pytest.fixture
 def parameters():
-    return Parameter()
+    return ExecuteParameter()
 
+def test_execute_parametersv2(parameters, id = 'parametersv2'):
+    result = parameters.execute_parametersv2(parameters.parse_json(parametersv2[1]))
+    for query in result:
+        print(query)
+        assert isinstance(query, str)
+
+    assert isinstance(result, list)
+
+# early testing
 # def test_is_json(parameters):
 #     assert parameters.is_json_to_dict(parameters.parse_json(parametersv1[0])) == True
 
@@ -166,10 +174,3 @@ def parameters():
 
 #     assert isinstance(parsed, list)
 
-def test_execute_parametersv2(parameters, id = 'parametersv2'):
-    result = parameters.execute_parametersv2(parameters.parse_json(parametersv2[1]))
-    for query in result:
-        print(query)
-        assert isinstance(query, str)
-
-    assert isinstance(result, list)

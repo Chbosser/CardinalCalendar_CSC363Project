@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 from backend.services.database import UserTable
 from flask_bcrypt import Bcrypt
 from flask_bcrypt import generate_password_hash, check_password_hash
-from modules.ai import run_ai, conversate_with_ai
+from modules.gpt import ai_sql_pipeline, ai_choose_electives
 
 app = Flask("__name__")
 CORS(app)
@@ -12,10 +12,10 @@ flask_bcrypt = Bcrypt(app)
 
 @app.route("/register", methods = ['GET', 'POST'])
 def register():
-    user = UserTable()
+    user = UserTable() # connects to database
     if request.method == 'POST':
-        hash_password = generate_password_hash(request.form.get('password')).decode('utf-8')
-        print(type(hash_password))
+        hash_password = generate_password_hash(request.form.get('password')).decode('utf-8') # hashing sensitive data is important to ensure security for a user's data
+        # print(type(hash_password)) # <-- used in debugging purposes
         user.create_user(request.form.get('fname'),request.form.get('lname'),request.form.get('emailaddress'),request.form.get('username'), hash_password)
 
     return jsonify({"success": True}), 201
@@ -23,13 +23,17 @@ def register():
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        user = UserTable()
+        user = UserTable() # connects to database
         username = request.form.get('username')
         candidate = request.form.get('password').encode('utf-8')
         result = user.get_user(username)
 
+        if result == None: # if statement ensures user is valid before checking password
+            return jsonify({'success': False})
+        
         stored_hash = result[1].strip()
         password_matches = check_password_hash(stored_hash, candidate)
+
         if password_matches:
             return jsonify({'success': True})
         else:
@@ -38,16 +42,18 @@ def login():
 @app.route('/cardinalcalendar', methods = ['POST', 'GET'])
 def user_input():
     if request.method == 'POST':
+
         user_input = request.form.get('chat-input')
-        result = run_ai(user_input)
+        result = ai_sql_pipeline(user_input) # result is a list of objects in a list (first index is the required classes, second index are electives)
+
         return jsonify(result)
 
 @app.route('/chatbot', methods = ['POST', 'GET'])
-def conversate():
-    # convoid = request.form.get('convoid')
-    courses = request.form.get('other')
-    ui = request.form.get('input')
-    result = conversate_with_ai(courses, ui)
+def electives():
+    electives = request.form.get('other')
+    user_input = request.form.get('input')
+
+    result = ai_choose_electives(electives, user_input)
     return jsonify(result)
 
 if __name__ == "__main__":

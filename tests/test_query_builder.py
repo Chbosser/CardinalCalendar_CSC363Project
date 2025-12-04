@@ -1,10 +1,8 @@
 import pytest
-from modules.module1 import QueryBuilder
-from modules.module1 import Parameter
-import json
-from data.curriculum import cs_curriculum
+from modules.parameter_executer import QueryBuilder
+from modules.parameter_executer import ExecuteParameter
 
-more_test_parameters = [
+additional_parameters = [
 """
 {
     "term": "Spring 2026",
@@ -24,8 +22,8 @@ def query_builder():
     return QueryBuilder()
 
 def test_test2_query(query_builder):
-    parameter = Parameter()
-    string = parameter.parse_json(more_test_parameters[0])
+    parameter = ExecuteParameter()
+    string = parameter.parse_json(additional_parameters[0])
     results = query_builder.test2_query(string)
     print(results)
     assert isinstance(results, list), "result is list"

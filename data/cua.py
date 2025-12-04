@@ -20,29 +20,29 @@ def wait():
 
 def loop_through_subjects(sub, final_term):
     wait()
-    lol = 6
-    WebDriverWait(driver, lol).until(
+    time_to_wait = 6
+    WebDriverWait(driver, time_to_wait).until(
     EC.presence_of_all_elements_located((By.ID, "subject"))
     )
     subject = Select(driver.find_element(By.ID, "subject"))
     subject.select_by_visible_text(f"{sub}")
 
     wait()
-    WebDriverWait(driver, lol).until(
+    WebDriverWait(driver, time_to_wait).until(
         EC.element_to_be_clickable((By.ID, "view_catalog"))
     )
     input = driver.find_element(By.ID, "view_catalog")
     input.click()
 
     wait()
-    WebDriverWait(driver, lol).until(
+    WebDriverWait(driver, time_to_wait).until(
         EC.element_to_be_clickable((By.ID, "courseSchedExpandAll"))
     )
     expand = driver.find_element(By.ID, "courseSchedExpandAll")
     expand.click()
 
     wait()
-    WebDriverWait(driver, lol).until(
+    WebDriverWait(driver, time_to_wait).until(
         EC.element_to_be_clickable((By.CLASS_NAME, "coursedescription"))
     )
     description = driver.find_elements(By.CLASS_NAME, "coursedescription")
@@ -151,29 +151,25 @@ def loop_through_subjects(sub, final_term):
 
 
 service = Service(executable_path="/Users/eliorocha/Downloads/chromedriver-mac-arm64/chromedriver")
-# options = Options()
-# options.add_argument("--headless=new")
-driver = webdriver.Chrome(service=service)#, #options=options)
+options = Options()
+options.add_argument("--headless=new")
+driver = webdriver.Chrome(service=service, options=options)
 
 
-url = "https://engineering.catholic.edu/academics/courses/course-schedules/index.html"
-url2 = "https://arts-sciences.catholic.edu/academics/courses/course-schedules/index.html"
-driver.get(url2)
+url = "https://arts-sciences.catholic.edu/academics/courses/course-schedules/index.html"
+driver.get(url)
 
-subjects = [
-    "Biomedical Engineering",
-    "Civil & Environmental Engineer",
-    "Computer Science",
-    "Data Analytics",
-    "Electrical Engineering",
-    "Engineering Management: O/C",
-    "Engineering, General",
-    "Materials Science and Engineering",
-    "Physics"
-]
-first = "Materials Science and Engineering"
-second = "Computer Science"
-test_subject = [first]
+# engineering_subjects = [
+#     "Biomedical Engineering",
+#     "Civil & Environmental Engineer",
+#     "Computer Science",
+#     "Data Analytics",
+#     "Electrical Engineering",
+#     "Engineering Management: O/C",
+#     "Engineering, General",
+#     "Materials Science and Engineering",
+#     "Physics"
+# ]
 
 ALL_SUBJECTS = [
     "Accounting",
@@ -286,8 +282,6 @@ term.select_by_visible_text("Spring 2026")
 
 final_term = term.first_selected_option.text
 
-# for subject in subjects:
-#     loop_through_subjects(subject)
 for subject in ALL_SUBJECTS:
     cur.execute("INSERT INTO CATALOG (SUBJECT_NAME, TERM) VALUES(%s, %s);", (subject, final_term))
     loop_through_subjects(subject, final_term)

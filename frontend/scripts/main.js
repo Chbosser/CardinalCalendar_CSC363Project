@@ -31,7 +31,7 @@ input.addEventListener('keydown', async (event) => {
             const requiredCourses = JSON.parse(data[0]); // gets the first list of objects (required courses)
             otherCourses = JSON.parse(data[1]); // gets the second list of objects (courses != required courses)
             getRequiredCourses(requiredCourses);
-            //getOtherCourses(otherCourses);
+            getOtherCourses(otherCourses);
             localStorage.setItem('parsed', 'true')
         }
         
